@@ -4,7 +4,14 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            TextRPG game = new TextRPG();
+            game.Start();
+
+            while (true)
+            {
+                game.Update();
+                Thread.Sleep(250);
+            }
         }
     }
 }
