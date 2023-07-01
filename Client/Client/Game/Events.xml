@@ -1,0 +1,114 @@
+<?xml version ="1.0" encoding="utf-8"?>
+<Events>
+	<event name="심해화산폭발" stage="5">
+		<description>
+			[플레이어 캐릭터는 심해의 깊은 지점을 탐험 중입니다. 갑작스럽게 땅이 진동하고, 근처에서 폭발음과 함께 불길이 일었습니다.]
+
+			플레이어: (놀라며) 무슨 일이야? 화산 폭발인가?
+
+			[화산 폭발로 인해 주변 환경이 치명적인 위험으로 둘러싸여 있습니다. 플레이어는 생존과 탈출을 위해 대처해야 합니다.]
+		</description>
+		<action name="탈출경로탐색">
+			<description>
+				탈출할 경로를 찾아보자!
+			</description>
+			<surge>700</surge>
+			<fuel>-10</fuel>
+			<food>-5</food>
+			<oxygen>-50</oxygen>
+		</action>
+		<action name="불길과 산성 기체 회피">
+			<description>
+				산성 기체를 피해야햇!
+			</description>
+			<surge>700</surge>
+			<fuel>-10</fuel>
+			<food>-5</food>
+			<oxygen>-50</oxygen>
+		</action>
+	</event>
+	
+	<event name="어둠" stage="5">
+		<description>
+			[플레이어 캐릭터는 심해의 깊은 지점을 탐험 중입니다. 갑작스런 암흑이 찾아와 주변이 어둠으로 가득합니다.]
+
+			플레이어: (불안하게) 어떻게 된 거지? 빛이 사라졌어!
+
+			[암흑 속에서 플레이어는 방향을 잃고, 주변 환경과 위험으로부터 탈출해야 합니다.]
+		</description>
+		<action name="조명 장치 활용">
+			<description>
+				어두워졌어 비상 조명이 있을까?!
+			</description>
+			<surge>250</surge>
+			<fuel>-20</fuel>
+			<food>-10</food>
+			<oxygen>-70</oxygen>
+		</action>
+		<action name="감각을 집중시키기">
+			<description>
+				어두워졌어 시각을 제외한 다른 감각에 집중해보잣!
+			</description>
+			<surge>250</surge>
+			<fuel>-20</fuel>
+			<food>-10</food>
+			<oxygen>-70</oxygen>
+		</action>
+	</event>
+
+	<event name="연료 누수" stage="4">
+		<description>
+			[플레이어 캐릭터는 심해의 깊은 지점을 탐험 중입니다. 갑작스러운 충돌로 인해 연료 누수가 발생합니다.]
+
+			플레이어: (긴장하며) 누가 이런 짓을 한 거야? 연료가 새고 있어!
+
+			[연료 누수로 인해 플레이어는 빠른 대응과 탈출을 위한 조치를 취해야 합니다.]
+		</description>
+		<action name="누수된 연료 막기">
+			<description>
+				연료가 새고 있어! 막아야해!
+			</description>
+			<surge>500</surge>
+			<fuel>-50</fuel>
+			<food>-5</food>
+			<oxygen>-50</oxygen>
+		</action>
+		<action name="비상 탈출 계획 세우기">
+			<description>
+				연료 누수가 너무 심해 안되겠어 비상 탈출이다!
+			</description>
+			<surge>500</surge>
+			<fuel>-50</fuel>
+			<food>-5</food>
+			<oxygen>-50</oxygen>
+		</action>
+	</event>
+
+	<event name="해류" stage="4">
+		<description>
+			[플레이어 캐릭터는 심해의 깊은 지점을 탐험 중입니다. 갑작스러운 해류가 발생하여 플레이어가 그 힘에 휩쓸려갑니다.]
+
+			플레이어: (놀라며) 무슨 일이야? 이 해류에 휩쓸려가!
+
+			[해류에 휩쓸린 플레이어는 힘겨운 상황에서 자신을 구하기 위해 적절한 선택을 해야 합니다.]
+		</description>
+		<action name="저항과 방향 조작">
+			<description>
+				해류에 휩쓸리면 안돼! 어서 빠져나가자
+			</description>
+			<surge>300</surge>
+			<fuel>-10</fuel>
+			<food>-5</food>
+			<oxygen>-50</oxygen>
+		</action>
+		<action name="구명 장비 활용">
+			<description>
+				해류에 휩쓸려버렸어.. 이게 도움이 될까?
+			</description>
+			<surge>300</surge>
+			<fuel>-10</fuel>
+			<food>-5</food>
+			<oxygen>-50</oxygen>
+		</action>
+	</event>
+</Events>

@@ -9,21 +9,24 @@ namespace Client
 {
     internal class TextRPG
     {
-        Character character = null;
-        string name;
+        Character _character = null;
+        string _name;
+        List<Event> _events;
+        int _depth = 5000;
 
         public void Start()
         {
-            ShowGameStory();
-            SelectCharacter();
-            InputName();
+            //ShowGameStory();
+            //SelectCharacter();
+            //InputName();
             LoadEvents();
         }
 
         public void Update()
         {
-            Console.Clear();
-            Console.WriteLine("Gaming..");
+            //Console.Clear();
+            //Console.WriteLine("Gaming..");
+            OccurEvent();
         }
 
         void ShowGameStory()
@@ -40,7 +43,7 @@ namespace Client
 
         void SelectCharacter()
         {
-            while (character == null)
+            while (_character == null)
             {
                 Console.Clear();
                 Console.WriteLine("난이도가 어려운 프로젝트인 만큼 팀에는 여러 인재들이 존재했다.");
@@ -53,16 +56,16 @@ namespace Client
                 int.TryParse(Console.ReadLine(), out selectedNumber);
 
                 CharacterFactory factory = new CharacterFactory();
-                character = factory.MakeCharacter(selectedNumber);
+                _character = factory.MakeCharacter(selectedNumber);
 
-                if (character == null)
+                if (_character == null)
                 {
                     Console.WriteLine("다시 골라주세요.");
                     Thread.Sleep(1000);
                 }
             }
 
-            Console.WriteLine($"당신은 {character.name}를 고르셨습니다.");
+            Console.WriteLine($"당신은 {_character.name}를 고르셨습니다.");
             Thread.Sleep(1000);
         }
 
@@ -70,8 +73,8 @@ namespace Client
         {
             Console.Clear();
             Console.WriteLine("당신의 이름을 알려주세요.");
-            name = Console.ReadLine();
-            Console.WriteLine($"안녕하세요 {name}님");
+            _name = Console.ReadLine();
+            Console.WriteLine($"안녕하세요 {_name}님");
             Thread.Sleep(1000);
             Console.Clear();
             Console.WriteLine("게임을 시작하겠습니다.");
@@ -86,6 +89,13 @@ namespace Client
 
         void LoadEvents()
         {
+            EventLoader loader = new EventLoader();
+            _events = loader.Load();
+        }
+
+        void OccurEvent()
+        {
+            int stage = (_depth / 1000) + 1;
 
         }
     }
