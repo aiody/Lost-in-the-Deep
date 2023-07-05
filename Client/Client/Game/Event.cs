@@ -14,21 +14,22 @@ namespace Client
         public int fuel;
         public int food;
         public int oxygen;
+        // public int relic;
     }
 
     internal class Event
     {
-        string _name;
-        int _depth;
-        string _description;
-        List<Action> _actions;
+        public string Name { get; private set; }
+        public int Stage { get; private set; }
+        public string Description { get; private set; }
+        public List<Action> Actions { get; private set; }
 
-        public Event(string name, int depth, string description, List<Action> actions)
+        public Event(string name, int stage, string description, List<Action> actions)
         {
-            _name = name;
-            _depth = depth;
-            _description = description;
-            _actions = actions;
+            Name = name;
+            Stage = stage;
+            Description = description;
+            Actions = actions;
         }
     }
 }

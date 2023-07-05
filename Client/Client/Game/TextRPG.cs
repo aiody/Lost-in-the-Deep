@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Collections.Specialized.BitVector32;
 
 namespace Client
 {
@@ -13,6 +14,9 @@ namespace Client
         string _name;
         List<Event> _events;
         int _depth = 5000;
+        int _fuel = 100;
+        int _food = 100;
+        int _oxygen = 1000;
 
         public void Start()
         {
@@ -27,6 +31,7 @@ namespace Client
             //Console.Clear();
             //Console.WriteLine("Gaming..");
             OccurEvent();
+            checkGameOver();
         }
 
         void ShowGameStory()
@@ -66,6 +71,9 @@ namespace Client
             }
 
             Console.WriteLine($"당신은 {_character.name}를 고르셨습니다.");
+            _fuel = 100;
+            _food = 100;
+            _oxygen = 1000;
             Thread.Sleep(1000);
         }
 
@@ -95,8 +103,88 @@ namespace Client
 
         void OccurEvent()
         {
-            int stage = (_depth / 1000) + 1;
+            // 1 - 1000 : 1 stage
+            // 1001 - 2000 : 2 stage
+            // 2001 - 3000 : 3 stage
+            // 3001 - 4000 : 4 stage
+            // 4001 - 5000 : 5 stage
+            int stage = ((_depth - 1) / 1000) + 1;
+            List<Event> availableEvents = _events.FindAll(e => e.Stage == stage);
+            Random rand = new Random();
+            Event curEvent = availableEvents[rand.Next(0, availableEvents.Count)];
+            Console.WriteLine(curEvent.Name);
+            Console.WriteLine(curEvent.Description);
+            for (int i = 0; i < curEvent.Actions.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}: {curEvent.Actions[i].name}");
+            }
 
+            // choose action
+            int input = 0;
+            while (true)
+            {
+                int.TryParse(Console.ReadLine(), out input);
+
+                if (input > 0 && input <= curEvent.Actions.Count)
+                    break;
+
+                Console.WriteLine("다시 입력해주세요.");
+            }
+
+            // ouput action result
+            Action curAction = curEvent.Actions[input - 1];
+            Console.WriteLine(curAction.name);
+            Console.WriteLine(curAction.description);
+
+            Thread.Sleep(500);
+            if (curAction.surge > 0)
+                Console.WriteLine($"{curAction.surge}만큼 상승하였습니다.");
+            else
+                Console.WriteLine($"{curAction.surge}만큼 하강하였습니다.");
+
+            Thread.Sleep(500);
+            if (curAction.fuel > 0)
+                Console.WriteLine($"연료를 {curAction.fuel}만큼 소모했습니다.");
+            else
+                Console.WriteLine($"연료를 {curAction.fuel}만큼 획득했습니다.");
+
+            Thread.Sleep(500);
+            if (curAction.food > 0)
+                Console.WriteLine($"식량을 {curAction.food}만큼 소모했습니다.");
+            else
+                Console.WriteLine($"식량을 {curAction.food}만큼 획득했습니다.");
+
+            Thread.Sleep(500);
+            if (curAction.oxygen > 0)
+                Console.WriteLine($"산소를 {curAction.oxygen}만큼 소모했습니다.");
+            else
+                Console.WriteLine($"산소를 {curAction.oxygen}만큼 획득했습니다.");
+
+            Thread.Sleep(500);
+            _depth -= curAction.surge;
+            Console.WriteLine($"현재 깊이 {_depth}");
+        }
+
+        void checkGameOver()
+        {
+            Thread.Sleep(1000);
+            Console.Clear();
+
+            if (_depth <= 0)
+                Ending();
+
+            if (_fuel <= 0 || _food <= 0 || _oxygen <= 0)
+                GameOver();
+        }
+
+        void Ending()
+        {
+            Console.WriteLine("당신은 탈출에 성공하였습니다~!");
+        }
+
+        void GameOver()
+        {
+            Console.WriteLine("당신은 탈출에 실패하였습니다...");
         }
     }
 }
