@@ -73,7 +73,7 @@ namespace Client
                 }
                 if (r.Name == "action")
                 {
-                    Tuple<string, string, int, int, int, int> t = ParseAction(r);
+                    Tuple<string, string, int, int, int, int, int> t = ParseAction(r);
                     Action action = new Action
                     {
                         name = t.Item1,
@@ -81,7 +81,8 @@ namespace Client
                         surge = t.Item3,
                         fuel = t.Item4,
                         food = t.Item5,
-                        oxygen = t.Item6
+                        oxygen = t.Item6,
+                        relic = t.Item7
                     };
                     if (t != null)
                         actions.Add(action);
@@ -91,7 +92,7 @@ namespace Client
             return new Event(eventName, stage, description, actions);
         }
 
-        Tuple<string, string, int, int, int, int> ParseAction(XmlReader r)
+        Tuple<string, string, int, int, int, int, int> ParseAction(XmlReader r)
         {
             if (r.Name.ToLower() != "action")
             {
@@ -104,6 +105,7 @@ namespace Client
             int fuel = 0;
             int food = 0;
             int oxygen = 0;
+            int relic = 0;
 
             string actionName = r["name"];
             if (string.IsNullOrEmpty(actionName))
@@ -149,9 +151,15 @@ namespace Client
                     r.Read();
                     int.TryParse(r.Value, out oxygen);
                 }
+
+                if (r.Name == "relic")
+                {
+                    r.Read();
+                    int.TryParse(r.Value, out relic);
+                }
             }
 
-            return new Tuple<string, string, int, int, int, int>(actionName, actionDesc, surge, fuel, food, oxygen);
+            return new Tuple<string, string, int, int, int, int, int>(actionName, actionDesc, surge, fuel, food, oxygen, relic);
         }
     }
 }

@@ -17,6 +17,7 @@ namespace Client
         int _fuel = 100;
         int _food = 100;
         int _oxygen = 1000;
+        int _relic = 50;
 
         public void Start()
         {
@@ -74,6 +75,7 @@ namespace Client
             _fuel = 100;
             _food = 100;
             _oxygen = 1000;
+            _relic = 50;
             Thread.Sleep(1000);
         }
 
@@ -138,27 +140,38 @@ namespace Client
 
             Thread.Sleep(500);
             if (curAction.surge > 0)
-                Console.WriteLine($"{curAction.surge}만큼 상승하였습니다.");
+                Console.WriteLine($"{Math.Abs(curAction.surge)}만큼 상승하였습니다.");
             else
-                Console.WriteLine($"{curAction.surge}만큼 하강하였습니다.");
+                Console.WriteLine($"{Math.Abs(curAction.surge)}만큼 하강하였습니다.");
 
             Thread.Sleep(500);
             if (curAction.fuel > 0)
-                Console.WriteLine($"연료를 {curAction.fuel}만큼 소모했습니다.");
+                Console.WriteLine($"연료를 {Math.Abs(curAction.fuel)}만큼 획득했습니다.");
             else
-                Console.WriteLine($"연료를 {curAction.fuel}만큼 획득했습니다.");
+                Console.WriteLine($"연료를 {Math.Abs(curAction.fuel)}만큼 소모했습니다.");
 
             Thread.Sleep(500);
             if (curAction.food > 0)
-                Console.WriteLine($"식량을 {curAction.food}만큼 소모했습니다.");
+                Console.WriteLine($"식량을 {Math.Abs(curAction.food)}만큼 획득했습니다.");
             else
-                Console.WriteLine($"식량을 {curAction.food}만큼 획득했습니다.");
+                Console.WriteLine($"식량을 {Math.Abs(curAction.food)}만큼 소모했습니다.");
 
             Thread.Sleep(500);
             if (curAction.oxygen > 0)
-                Console.WriteLine($"산소를 {curAction.oxygen}만큼 소모했습니다.");
+                Console.WriteLine($"산소를 {Math.Abs(curAction.oxygen)}만큼 획득했습니다.");
             else
-                Console.WriteLine($"산소를 {curAction.oxygen}만큼 획득했습니다.");
+                Console.WriteLine($"산소를 {Math.Abs(curAction.oxygen)}만큼 소모했습니다.");
+
+            Thread.Sleep(500);
+            if (curAction.relic > 0)
+                Console.WriteLine($"유물을 {Math.Abs(curAction.relic)}만큼 얻었습니다.");
+            else
+                Console.WriteLine($"유물을 {Math.Abs(curAction.relic)}만큼 잃었습니다.");
+
+            _fuel += curAction.fuel;
+            _food += curAction.food;
+            _oxygen += curAction.oxygen;
+            _relic += curAction.relic;
 
             Thread.Sleep(500);
             _depth -= curAction.surge;

@@ -14,7 +14,7 @@ namespace Client
         public int fuel;
         public int food;
         public int oxygen;
-        // public int relic;
+        public int relic;
     }
 
     internal class Event
