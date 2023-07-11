@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Server
 {
-    class GameSession : Session
+    class GameSession : PacketSession
     {
         public override void OnConnected(EndPoint endPoint)
         {
@@ -18,10 +18,11 @@ namespace Server
             Disconnect();
         }
 
-        public override void OnRecv(ArraySegment<byte> buffer)
+        public override void OnRecvPacket(ArraySegment<byte> buffer)
         {
-            string recvData = Encoding.UTF8.GetString(buffer.Array, buffer.Offset, buffer.Count);
-            Console.WriteLine($"클라에서 받은 메시지 : {recvData}");
+            ushort size = BitConverter.ToUInt16(buffer.Array, buffer.Offset);
+            ushort id = BitConverter.ToUInt16(buffer.Array, buffer.Offset + 2);
+            Console.WriteLine($"RecvPacketId : {id}, Size : {size}");
         }
 
         public override void OnSend(int numOfBytes)
