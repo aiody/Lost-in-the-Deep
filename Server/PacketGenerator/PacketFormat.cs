@@ -12,6 +12,7 @@ namespace PacketGenerator
         public static string managerFormat =
 @"using Google.Protobuf;
 using Google.Protobuf.Protocol;
+using Server;
 
 internal class PacketManager
 {{

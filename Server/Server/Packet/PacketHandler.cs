@@ -13,5 +13,10 @@ namespace Server
         {
 
         }
+
+        public static void S_LeaveGameHandler(PacketSession session, IMessage packet)
+        {
+
+        }
     }
 }
