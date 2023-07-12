@@ -19,4 +19,8 @@
     </COMReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.23.4" />
+  </ItemGroup>
+
 </Project>

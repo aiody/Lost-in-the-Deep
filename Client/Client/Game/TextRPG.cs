@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.WebSockets;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Collections.Specialized.BitVector32;
+﻿using Google.Protobuf.Protocol;
 
 namespace Client
 {
@@ -21,6 +15,11 @@ namespace Client
 
         public void Start()
         {
+            NetworkManager.Instance.Init();
+
+            C_GetEvent getEvent = new C_GetEvent() { Name = "Robinn" };
+            NetworkManager.Instance.Send(getEvent);
+
             //ShowGameStory();
             //SelectCharacter();
             //InputName();

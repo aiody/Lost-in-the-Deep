@@ -1,4 +1,5 @@
-﻿using Google.Protobuf;
+﻿using ServerCore;
+using Google.Protobuf;
 using Google.Protobuf.Protocol;
 using System;
 using System.Collections.Generic;
@@ -6,18 +7,18 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using ServerCore;
 
-internal class ClientSession : PacketSession
+internal class ServerSession : PacketSession
 {
     public void Send(IMessage packet)
     {
         string msgName = packet.Descriptor.Name.Replace("_", string.Empty);
         MsgId msgId = (MsgId)Enum.Parse(typeof(MsgId), msgName);
 
+        // size와 패킷 id 붙이기
         ushort size = (ushort)packet.CalculateSize();
         byte[] sendBuffer = new byte[size + 4];
-        Array.Copy(BitConverter.GetBytes(size + 4), 0, sendBuffer, 0, sizeof(ushort));
+        Array.Copy(BitConverter.GetBytes((ushort)(size + 4)), 0, sendBuffer, 0, sizeof(ushort));
         Array.Copy(BitConverter.GetBytes((ushort)msgId), 0, sendBuffer, 2, sizeof(ushort));
         Array.Copy(packet.ToByteArray(), 0, sendBuffer, 4, size);
 
@@ -27,17 +28,11 @@ internal class ClientSession : PacketSession
     public override void OnConnected(EndPoint endPoint)
     {
         Console.WriteLine($"OnConneced : {endPoint}");
+    }
 
-        S_EnterGame enterGame = new S_EnterGame()
-        {
-            Player = new ObjectInfo()
-            {
-                ObjectId = 1,
-                Name = "Robin"
-            }
-        };
-
-        Send(enterGame);
+    public override void OnDisconnected(EndPoint endPoint)
+    {
+        Console.WriteLine($"OnDisconneced : {endPoint}");
     }
 
     public override void OnRecvPacket(ArraySegment<byte> buffer)
@@ -52,10 +47,5 @@ internal class ClientSession : PacketSession
     public override void OnSend(int numOfBytes)
     {
         Console.WriteLine($"Transffered bytes : {numOfBytes}");
-    }
-
-    public override void OnDisconnected(EndPoint endPoint)
-    {
-        Console.WriteLine($"OnDisconneced : {endPoint}");
     }
 }

@@ -2,7 +2,9 @@
 {
     internal class Program
     {
-        static string managerRegister;
+        static string clientRegister;
+        static string serverRegister;
+
         static void Main(string[] args)
         {
             string file = "../../../../../Common/protoc-23.1-win64/bin/Protocol.proto";
@@ -39,15 +41,25 @@
                         msgName += FirstCharToUpper(word);
 
                     string packetName = $"S_{msgName.Substring(1)}";
-                    managerRegister += string.Format(PacketFormat.managerRegisterFormat, msgName, packetName);
+                    clientRegister += string.Format(PacketFormat.managerRegisterFormat, msgName, packetName);
                 }
                 else if (name.StartsWith("C_"))
                 {
+                    string[] words = name.Split("_");
+
+                    string msgName = "";
+                    foreach (string word in words)
+                        msgName += FirstCharToUpper(word);
+
+                    string packetName = $"C_{msgName.Substring(1)}";
+                    serverRegister += string.Format(PacketFormat.managerRegisterFormat, msgName, packetName);
                 }
             }
 
-            string managerText = string.Format(PacketFormat.managerFormat, managerRegister);
-            File.WriteAllText("PacketManager.cs", managerText);
+            string clientManagerText = string.Format(PacketFormat.managerFormat, clientRegister);
+            File.WriteAllText("ClientPacketManager.cs", clientManagerText);
+            string serverManagerText = string.Format(PacketFormat.managerFormat, serverRegister);
+            File.WriteAllText("ServerPacketManager.cs", serverManagerText);
         }
 
         public static string FirstCharToUpper(string input)

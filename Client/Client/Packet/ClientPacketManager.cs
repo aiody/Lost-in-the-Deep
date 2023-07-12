@@ -1,6 +1,6 @@
 using Google.Protobuf;
 using Google.Protobuf.Protocol;
-using Server;
+using ServerCore;
 
 internal class PacketManager
 {
