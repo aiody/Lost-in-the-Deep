@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Google.Protobuf.Protocol;
+using Google.Protobuf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -12,6 +14,21 @@ namespace ServerCore
     public abstract class PacketSession : Session
     {
         public static readonly short HeaderSize = 2;
+
+        public void Send(IMessage packet)
+        {
+            string msgName = packet.Descriptor.Name.Replace("_", string.Empty);
+            MsgId msgId = (MsgId)Enum.Parse(typeof(MsgId), msgName);
+
+            ushort size = (ushort)packet.CalculateSize();
+            byte[] sendBuffer = new byte[size + 4];
+            Array.Copy(BitConverter.GetBytes(size + 4), 0, sendBuffer, 0, sizeof(ushort));
+            Array.Copy(BitConverter.GetBytes((ushort)msgId), 0, sendBuffer, 2, sizeof(ushort));
+            Array.Copy(packet.ToByteArray(), 0, sendBuffer, 4, size);
+
+            Send(new ArraySegment<byte>(sendBuffer));
+        }
+
         // [size(2)][packetId(2)][ ... ][size(2)][packetId(2)][ ... ]
         public sealed override int OnRecv(ArraySegment<byte> buffer)
         {

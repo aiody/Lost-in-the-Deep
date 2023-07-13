@@ -1,43 +1,23 @@
-﻿using Google.Protobuf;
-using Google.Protobuf.Protocol;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net;
 using ServerCore;
+using Server.Game;
+using Server;
 
 internal class ClientSession : PacketSession
 {
-    public void Send(IMessage packet)
-    {
-        string msgName = packet.Descriptor.Name.Replace("_", string.Empty);
-        MsgId msgId = (MsgId)Enum.Parse(typeof(MsgId), msgName);
-
-        ushort size = (ushort)packet.CalculateSize();
-        byte[] sendBuffer = new byte[size + 4];
-        Array.Copy(BitConverter.GetBytes(size + 4), 0, sendBuffer, 0, sizeof(ushort));
-        Array.Copy(BitConverter.GetBytes((ushort)msgId), 0, sendBuffer, 2, sizeof(ushort));
-        Array.Copy(packet.ToByteArray(), 0, sendBuffer, 4, size);
-
-        Send(new ArraySegment<byte>(sendBuffer));
-    }
+    public Player MyPlayer { get; set; }
 
     public override void OnConnected(EndPoint endPoint)
     {
         Console.WriteLine($"OnConneced : {endPoint}");
 
-        S_EnterGame enterGame = new S_EnterGame()
-        {
-            Player = new ObjectInfo()
-            {
-                ObjectId = 1,
-                Name = "Robin"
-            }
-        };
+        GameRoom room = RoomManager.Instance.GetRecentRoom();
+        if (room == null)
+            room = RoomManager.Instance.Add();
 
-        Send(enterGame);
+        MyPlayer = PlayerManager.Instance.Add();
+        MyPlayer.Session = this;
+        room.EnterGame(MyPlayer);
     }
 
     public override void OnRecvPacket(ArraySegment<byte> buffer)
@@ -57,5 +37,10 @@ internal class ClientSession : PacketSession
     public override void OnDisconnected(EndPoint endPoint)
     {
         Console.WriteLine($"OnDisconneced : {endPoint}");
+
+        GameRoom room = MyPlayer.Room;
+        room.LeaveGame(MyPlayer.Id);
+
+        PlayerManager.Instance.Remove(MyPlayer.Id);
     }
 }
