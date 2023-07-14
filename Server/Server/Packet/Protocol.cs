@@ -28,9 +28,10 @@ namespace Google.Protobuf.Protocol {
             "aW1lc3RhbXAucHJvdG8iHwoLU19FbnRlckdhbWUSEAoIcGxheWVySWQYASAB",
             "KAUiDQoLU19MZWF2ZUdhbWUiHAoHU19TcGF3bhIRCglwbGF5ZXJJZHMYASAD",
             "KAUiHgoJU19EZXNwYXduEhEKCXBsYXllcklkcxgBIAMoBSIaCgpDX0dldEV2",
-            "ZW50EgwKBG5hbWUYASABKAkqPAoFTXNnSWQSEAoMU19FTlRFUl9HQU1FEAAS",
-            "EAoMU19MRUFWRV9HQU1FEAESDwoLQ19HRVRfRVZFTlQQAkIbqgIYR29vZ2xl",
-            "LlByb3RvYnVmLlByb3RvY29sYgZwcm90bzM="));
+            "ZW50EgwKBG5hbWUYASABKAkqWAoFTXNnSWQSEAoMU19FTlRFUl9HQU1FEAAS",
+            "EAoMU19MRUFWRV9HQU1FEAESCwoHU19TUEFXThACEg0KCVNfREVTUEFXThAD",
+            "Eg8KC0NfR0VUX0VWRU5UEARCG6oCGEdvb2dsZS5Qcm90b2J1Zi5Qcm90b2Nv",
+            "bGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.MsgId), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -48,7 +49,9 @@ namespace Google.Protobuf.Protocol {
   public enum MsgId {
     [pbr::OriginalName("S_ENTER_GAME")] SEnterGame = 0,
     [pbr::OriginalName("S_LEAVE_GAME")] SLeaveGame = 1,
-    [pbr::OriginalName("C_GET_EVENT")] CGetEvent = 2,
+    [pbr::OriginalName("S_SPAWN")] SSpawn = 2,
+    [pbr::OriginalName("S_DESPAWN")] SDespawn = 3,
+    [pbr::OriginalName("C_GET_EVENT")] CGetEvent = 4,
   }
 
   #endregion

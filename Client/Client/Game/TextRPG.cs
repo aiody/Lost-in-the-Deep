@@ -12,26 +12,32 @@ namespace Client
         int _food = 100;
         int _oxygen = 1000;
         int _relic = 50;
+        
+        Player _myPlayer = null;
 
         public void Start()
         {
             NetworkManager.Instance.Init();
-
-            C_GetEvent getEvent = new C_GetEvent() { Name = "Robinn" };
-            NetworkManager.Instance.Send(getEvent);
-
-            //ShowGameStory();
-            //SelectCharacter();
-            //InputName();
-            LoadEvents();
+            ShowGameStory();
+            
+            // 초기 설정
+            while (_myPlayer == null)
+            {
+                _myPlayer = PlayerManager.Instance.MyPlayer;
+            }
         }
 
         public void Update()
         {
+            //SelectCharacter();
+            //InputName();
+            //LoadEvents();
+
             //Console.Clear();
             //Console.WriteLine("Gaming..");
-            OccurEvent();
-            checkGameOver();
+            //OccurEvent();
+            //checkGameOver();
+            DrawUI();
         }
 
         void ShowGameStory()
@@ -197,6 +203,42 @@ namespace Client
         void GameOver()
         {
             Console.WriteLine("당신은 탈출에 실패하였습니다...");
+        }
+
+        void DrawUI()
+        {
+            // 플레이어의 깊이
+            {
+                for (int i = 0; i < Program.SCREEN_HEIGHT; i++)
+                {
+                    Console.SetCursorPosition(Program.SCREEN_WIDTH - 16, i);
+                    Console.Write("∬");
+                }
+
+                for (int i = 0; i < Program.SCREEN_HEIGHT; i++)
+                {
+                    Console.SetCursorPosition(Program.SCREEN_WIDTH - 2, i);
+                    Console.Write("∬");
+                }
+
+                // 내 위치
+                Console.SetCursorPosition(Program.SCREEN_WIDTH - 14, Program.SCREEN_HEIGHT - 1);
+                Console.Write("★");
+
+                // 다른 플레이어 위치
+                int otherPlayerPosStart = 12;
+                for (int i = 12; i > 2; i -= 2)
+                {
+                    Console.SetCursorPosition(Program.SCREEN_WIDTH - i, Program.SCREEN_HEIGHT - 1);
+                    Console.Write("  ");
+                }
+                foreach (Player p in PlayerManager.Instance.Players.Values)
+                {
+                    Console.SetCursorPosition(Program.SCREEN_WIDTH - otherPlayerPosStart, Program.SCREEN_HEIGHT - 1);
+                    Console.Write(p.icon);
+                    otherPlayerPosStart -= 2;
+                }
+            }
         }
     }
 }

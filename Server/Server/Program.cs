@@ -17,7 +17,7 @@ namespace Server
             IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777);
 
             _listener.Init(endPoint, () => { return new ClientSession(); });
-            Console.WriteLine("LIstening...");
+            Console.WriteLine("Listening...");
 
             while (true)
             {

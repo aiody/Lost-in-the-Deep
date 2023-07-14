@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Google.Protobuf.Protocol;
+using Google.Protobuf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -11,6 +13,21 @@ namespace ServerCore
     public abstract class PacketSession : Session
     {
         public static readonly int HeaderSize = 2;
+
+        public void Send(IMessage packet)
+        {
+            string msgName = packet.Descriptor.Name.Replace("_", string.Empty);
+            MsgId msgId = (MsgId)Enum.Parse(typeof(MsgId), msgName);
+
+            // size와 패킷 id 붙이기
+            ushort size = (ushort)packet.CalculateSize();
+            byte[] sendBuffer = new byte[size + 4];
+            Array.Copy(BitConverter.GetBytes((ushort)(size + 4)), 0, sendBuffer, 0, sizeof(ushort));
+            Array.Copy(BitConverter.GetBytes((ushort)msgId), 0, sendBuffer, 2, sizeof(ushort));
+            Array.Copy(packet.ToByteArray(), 0, sendBuffer, 4, size);
+
+            Send(new ArraySegment<byte>(sendBuffer));
+        }
 
         public sealed override int OnRecv(ArraySegment<byte> buffer)
         {
@@ -33,8 +50,8 @@ namespace ServerCore
                 buffer = new ArraySegment<byte>(buffer.Array, buffer.Offset + dataSize, buffer.Count - dataSize);
             }
 
-            if (packetCount > 1)
-                Console.WriteLine($"패킷 모아보내기 : {packetCount}");
+            //if (packetCount > 1)
+                //Console.WriteLine($"패킷 모아보내기 : {packetCount}");
 
             return processLen;
         }
