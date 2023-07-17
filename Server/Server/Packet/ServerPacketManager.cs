@@ -19,6 +19,8 @@ internal class PacketManager
 
     public void Register()
     {
+        _onRecv.Add((ushort)MsgId.CSelectCharacter, MakePacket<C_SelectCharacter>);
+        _handler.Add((ushort)MsgId.CSelectCharacter, PacketHandler.C_SelectCharacterHandler);
     }
 
     public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
