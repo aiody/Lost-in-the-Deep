@@ -5,15 +5,7 @@ namespace Client
 {
     internal class TextRPG
     {
-        Character _character = null;
-        string _name;
         List<Event> _events;
-        int _depth = 5000;
-        int _fuel = 100;
-        int _food = 100;
-        int _oxygen = 1000;
-        int _relic = 50;
-        
         Player _myPlayer = null;
 
         public void Start()
@@ -27,11 +19,11 @@ namespace Client
                 _myPlayer = PlayerManager.Instance.MyPlayer;
                 LoadEvents();
             }
+            SelectCharacter();
         }
 
         public void Update()
         {
-            //SelectCharacter();
             //InputName();
 
             //Console.Clear();
@@ -55,7 +47,8 @@ namespace Client
 
         void SelectCharacter()
         {
-            while (_character == null)
+            int selectedNumber = 0;
+            while (_myPlayer.Character == null)
             {
                 Console.Clear();
                 Console.WriteLine("난이도가 어려운 프로젝트인 만큼 팀에는 여러 인재들이 존재했다.");
@@ -64,33 +57,32 @@ namespace Client
                 Console.WriteLine("1. 다이버 : 물리적으로 튼튼, 기동력 좋음. 산소를 덜 소모함.");
                 Console.WriteLine("2. 해양생물학자 : 지식 빵빵, 알고 있는 것이 많아서 상황 대처력이 좋음.");
                 Console.WriteLine("3. 고고학자 : 유물에 대한 전문 지식으로 유물을 더 많이 챙길 수 있음.");
-                int selectedNumber = 0;
+                
                 int.TryParse(Console.ReadLine(), out selectedNumber);
 
-                CharacterFactory factory = new CharacterFactory();
-                _character = factory.MakeCharacter(selectedNumber);
-
-                if (_character == null)
+                if (selectedNumber != 1 && selectedNumber != 2 && selectedNumber != 3)
                 {
                     Console.WriteLine("다시 골라주세요.");
                     Thread.Sleep(1000);
+                    continue;
                 }
-            }
 
-            Console.WriteLine($"당신은 {_character.name}를 고르셨습니다.");
-            _fuel = 100;
-            _food = 100;
-            _oxygen = 1000;
-            _relic = 50;
-            Thread.Sleep(1000);
+                CharacterType type = (CharacterType)(selectedNumber - 1);
+                _myPlayer.Character = type;
+
+                C_SelectCharacter selectPacket = new C_SelectCharacter { Character = type };
+                NetworkManager.Instance.Send(selectPacket);
+
+                Console.WriteLine($"당신은 {_myPlayer.CharacterName}를 고르셨습니다.");
+            }
         }
 
         void InputName()
         {
             Console.Clear();
             Console.WriteLine("당신의 이름을 알려주세요.");
-            _name = Console.ReadLine();
-            Console.WriteLine($"안녕하세요 {_name}님");
+            _myPlayer.name = Console.ReadLine();
+            Console.WriteLine($"안녕하세요 {_myPlayer.name}님");
             Thread.Sleep(1000);
             Console.Clear();
             Console.WriteLine("게임을 시작하겠습니다.");
@@ -115,7 +107,7 @@ namespace Client
             // 2001 - 3000 : 3 stage
             // 3001 - 4000 : 4 stage
             // 4001 - 5000 : 5 stage
-            int stage = ((_depth - 1) / 1000) + 1;
+            int stage = ((_myPlayer.Depth - 1) / 1000) + 1;
             List<Event> availableEvents = _events.FindAll(e => e.Stage == stage);
             Random rand = new Random();
             Event curEvent = availableEvents[rand.Next(0, availableEvents.Count)];
@@ -173,14 +165,14 @@ namespace Client
             else
                 Console.WriteLine($"유물을 {Math.Abs(curAction.Relic)}만큼 잃었습니다.");
 
-            _fuel += curAction.Fuel;
-            _food += curAction.Food;
-            _oxygen += curAction.Oxygen;
-            _relic += curAction.Relic;
+            _myPlayer.Fuel += curAction.Fuel;
+            _myPlayer.Food += curAction.Food;
+            _myPlayer.Oxygen += curAction.Oxygen;
+            _myPlayer.Relic += curAction.Relic;
 
             Thread.Sleep(500);
-            _depth -= curAction.Surge;
-            Console.WriteLine($"현재 깊이 {_depth}");
+            _myPlayer.Depth -= curAction.Surge;
+            Console.WriteLine($"현재 깊이 {_myPlayer.Depth}");
         }
 
         void checkGameOver()
@@ -188,10 +180,10 @@ namespace Client
             Thread.Sleep(1000);
             Console.Clear();
 
-            if (_depth <= 0)
+            if (_myPlayer.Depth <= 0)
                 Ending();
 
-            if (_fuel <= 0 || _food <= 0 || _oxygen <= 0)
+            if (_myPlayer.Fuel <= 0 || _myPlayer.Food <= 0 || _myPlayer.Oxygen <= 0)
                 GameOver();
         }
 

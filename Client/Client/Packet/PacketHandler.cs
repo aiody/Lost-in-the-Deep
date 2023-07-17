@@ -40,4 +40,17 @@ internal class PacketHandler
         foreach (int id in despawnPacket.PlayerIds)
             PlayerManager.Instance.Remove(id);
     }
+
+    public static void S_InitialCharacterInfoHandler(PacketSession session, IMessage packet)
+    {
+        S_InitialCharacterInfo infoPacket = packet as S_InitialCharacterInfo;
+        Player myPlayer = PlayerManager.Instance.MyPlayer;
+        {
+            myPlayer.Character = infoPacket.Character;
+            myPlayer.Depth = infoPacket.Depth;
+            myPlayer.Fuel = infoPacket.Fuel;
+            myPlayer.Food = infoPacket.Food;
+            myPlayer.Relic = infoPacket.Relic;
+        }
+    }
 }
