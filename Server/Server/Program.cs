@@ -11,6 +11,8 @@ namespace Server
 
         static void Main(string[] args)
         {
+            DataManager.LoadData();
+
             string host = Dns.GetHostName();
             IPHostEntry entry = Dns.GetHostEntry(host);
             IPAddress ipAddr = entry.AddressList[0];

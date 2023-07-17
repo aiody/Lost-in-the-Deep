@@ -1,13 +1,19 @@
-﻿using System;
+﻿using Google.Protobuf.Protocol;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
+using Action = Google.Protobuf.Protocol.Action;
 
-namespace Client
+namespace Server
 {
     internal class EventLoader
     {
         public List<Event> Load()
         {
-            string eventsPath = "../Events.xml";
+            string eventsPath = "../../../Events.xml";
             List<Event> events = new List<Event>();
 
             XmlReaderSettings settings = new XmlReaderSettings()
@@ -76,20 +82,30 @@ namespace Client
                     Tuple<string, string, int, int, int, int, int> t = ParseAction(r);
                     Action action = new Action
                     {
-                        name = t.Item1,
-                        description = t.Item2,
-                        surge = t.Item3,
-                        fuel = t.Item4,
-                        food = t.Item5,
-                        oxygen = t.Item6,
-                        relic = t.Item7
+                        Name = t.Item1,
+                        Description = t.Item2,
+                        Surge = t.Item3,
+                        Fuel = t.Item4,
+                        Food = t.Item5,
+                        Oxygen = t.Item6,
+                        Relic = t.Item7
                     };
                     if (t != null)
                         actions.Add(action);
                 }
             }
 
-            return new Event(eventName, stage, description, actions);
+            Event newEvent = new Event
+            {
+                Name = eventName,
+                Stage = stage,
+                Description = description
+            };
+
+            foreach (Action a in actions)
+                newEvent.Actions.Add(a);
+
+            return newEvent;
         }
 
         Tuple<string, string, int, int, int, int, int> ParseAction(XmlReader r)

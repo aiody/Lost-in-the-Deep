@@ -15,6 +15,9 @@ internal class PacketHandler
         S_EnterGame enterPacket = packet as S_EnterGame;
 
         PlayerManager.Instance.Add(enterPacket.PlayerId, true);
+
+        foreach (Event e in enterPacket.Events)
+            DataManager.Instance.Events.Add(e);
     }
 
     public static void S_LeaveGameHandler(PacketSession session, IMessage packet)

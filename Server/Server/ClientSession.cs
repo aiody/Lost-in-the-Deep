@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using ServerCore;
-using Server.Game;
 using Server;
 
 internal class ClientSession : PacketSession

@@ -25,6 +25,8 @@ namespace Server
             {
                 S_EnterGame enterPacket = new S_EnterGame();
                 enterPacket.PlayerId = player.Id;
+                foreach (Event e in DataManager.Events)
+                    enterPacket.Events.Add(e);
                 player.Session.Send(enterPacket);
 
                 S_Spawn spawnPacket = new S_Spawn();

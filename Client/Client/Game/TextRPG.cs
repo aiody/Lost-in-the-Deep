@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf.Protocol;
+using Action = Google.Protobuf.Protocol.Action;
 
 namespace Client
 {
@@ -24,6 +25,7 @@ namespace Client
             while (_myPlayer == null)
             {
                 _myPlayer = PlayerManager.Instance.MyPlayer;
+                LoadEvents();
             }
         }
 
@@ -31,7 +33,6 @@ namespace Client
         {
             //SelectCharacter();
             //InputName();
-            //LoadEvents();
 
             //Console.Clear();
             //Console.WriteLine("Gaming..");
@@ -104,8 +105,7 @@ namespace Client
 
         void LoadEvents()
         {
-            EventLoader loader = new EventLoader();
-            _events = loader.Load();
+            _events = DataManager.Instance.Events;
         }
 
         void OccurEvent()
@@ -123,7 +123,7 @@ namespace Client
             Console.WriteLine(curEvent.Description);
             for (int i = 0; i < curEvent.Actions.Count; i++)
             {
-                Console.WriteLine($"{i + 1}: {curEvent.Actions[i].name}");
+                Console.WriteLine($"{i + 1}: {curEvent.Actions[i].Name}");
             }
 
             // choose action
@@ -140,46 +140,46 @@ namespace Client
 
             // ouput action result
             Action curAction = curEvent.Actions[input - 1];
-            Console.WriteLine(curAction.name);
-            Console.WriteLine(curAction.description);
+            Console.WriteLine(curAction.Name);
+            Console.WriteLine(curAction.Description);
 
             Thread.Sleep(500);
-            if (curAction.surge > 0)
-                Console.WriteLine($"{Math.Abs(curAction.surge)}만큼 상승하였습니다.");
+            if (curAction.Surge > 0)
+                Console.WriteLine($"{Math.Abs(curAction.Surge)}만큼 상승하였습니다.");
             else
-                Console.WriteLine($"{Math.Abs(curAction.surge)}만큼 하강하였습니다.");
+                Console.WriteLine($"{Math.Abs(curAction.Surge)}만큼 하강하였습니다.");
 
             Thread.Sleep(500);
-            if (curAction.fuel > 0)
-                Console.WriteLine($"연료를 {Math.Abs(curAction.fuel)}만큼 획득했습니다.");
+            if (curAction.Fuel > 0)
+                Console.WriteLine($"연료를 {Math.Abs(curAction.Fuel)}만큼 획득했습니다.");
             else
-                Console.WriteLine($"연료를 {Math.Abs(curAction.fuel)}만큼 소모했습니다.");
+                Console.WriteLine($"연료를 {Math.Abs(curAction.Fuel)}만큼 소모했습니다.");
 
             Thread.Sleep(500);
-            if (curAction.food > 0)
-                Console.WriteLine($"식량을 {Math.Abs(curAction.food)}만큼 획득했습니다.");
+            if (curAction.Food > 0)
+                Console.WriteLine($"식량을 {Math.Abs(curAction.Food)}만큼 획득했습니다.");
             else
-                Console.WriteLine($"식량을 {Math.Abs(curAction.food)}만큼 소모했습니다.");
+                Console.WriteLine($"식량을 {Math.Abs(curAction.Food)}만큼 소모했습니다.");
 
             Thread.Sleep(500);
-            if (curAction.oxygen > 0)
-                Console.WriteLine($"산소를 {Math.Abs(curAction.oxygen)}만큼 획득했습니다.");
+            if (curAction.Oxygen > 0)
+                Console.WriteLine($"산소를 {Math.Abs(curAction.Oxygen)}만큼 획득했습니다.");
             else
-                Console.WriteLine($"산소를 {Math.Abs(curAction.oxygen)}만큼 소모했습니다.");
+                Console.WriteLine($"산소를 {Math.Abs(curAction.Oxygen)}만큼 소모했습니다.");
 
             Thread.Sleep(500);
-            if (curAction.relic > 0)
-                Console.WriteLine($"유물을 {Math.Abs(curAction.relic)}만큼 얻었습니다.");
+            if (curAction.Relic > 0)
+                Console.WriteLine($"유물을 {Math.Abs(curAction.Relic)}만큼 얻었습니다.");
             else
-                Console.WriteLine($"유물을 {Math.Abs(curAction.relic)}만큼 잃었습니다.");
+                Console.WriteLine($"유물을 {Math.Abs(curAction.Relic)}만큼 잃었습니다.");
 
-            _fuel += curAction.fuel;
-            _food += curAction.food;
-            _oxygen += curAction.oxygen;
-            _relic += curAction.relic;
+            _fuel += curAction.Fuel;
+            _food += curAction.Food;
+            _oxygen += curAction.Oxygen;
+            _relic += curAction.Relic;
 
             Thread.Sleep(500);
-            _depth -= curAction.surge;
+            _depth -= curAction.Surge;
             Console.WriteLine($"현재 깊이 {_depth}");
         }
 
