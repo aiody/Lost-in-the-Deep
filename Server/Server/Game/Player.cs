@@ -13,6 +13,8 @@ namespace Server
         public GameRoom Room { get; set; }
         public ClientSession Session { get; set; }
 
+        public string PlayerName { get; set; }
+
         public CharacterType type { get; set; }
         public int depth { get; set; }
         public int fuel { get; set; }

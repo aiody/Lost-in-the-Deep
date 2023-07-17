@@ -37,4 +37,12 @@ internal class PacketHandler
 
         clientSession.Send(initPacket);
     }
+
+    public static void C_SetPlayerNameHandler(PacketSession session, IMessage packet)
+    {
+        C_SetPlayerName namePacket = packet as C_SetPlayerName;
+        ClientSession clientSession = session as ClientSession;
+
+        clientSession.MyPlayer.PlayerName = namePacket.Name;
+    }
 }
