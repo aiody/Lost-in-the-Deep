@@ -20,12 +20,11 @@ namespace Client
                 LoadEvents();
             }
             SelectCharacter();
+            InputName();
         }
 
         public void Update()
         {
-            //InputName();
-
             //Console.Clear();
             //Console.WriteLine("Gaming..");
             //OccurEvent();
@@ -83,6 +82,10 @@ namespace Client
             Console.WriteLine("당신의 이름을 알려주세요.");
             _myPlayer.name = Console.ReadLine();
             Console.WriteLine($"안녕하세요 {_myPlayer.name}님");
+
+            C_SetPlayerName namePacket = new C_SetPlayerName { Name = _myPlayer.name };
+            NetworkManager.Instance.Send(namePacket);
+
             Thread.Sleep(1000);
             Console.Clear();
             Console.WriteLine("게임을 시작하겠습니다.");
