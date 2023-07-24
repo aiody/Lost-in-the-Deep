@@ -48,6 +48,13 @@ namespace Server
                 return null;
             }
 
+            int id = 0;
+            if (int.TryParse(r["id"], out id) == false)
+            {
+                Console.WriteLine("Id has invalid value");
+                return null;
+            }
+
             string eventName = r["name"];
             if (string.IsNullOrEmpty(eventName))
             {
@@ -79,24 +86,16 @@ namespace Server
                 }
                 if (r.Name == "action")
                 {
-                    Tuple<string, string, int, int, int, int, int> t = ParseAction(r);
-                    Action action = new Action
-                    {
-                        Name = t.Item1,
-                        Description = t.Item2,
-                        Surge = t.Item3,
-                        Fuel = t.Item4,
-                        Food = t.Item5,
-                        Oxygen = t.Item6,
-                        Relic = t.Item7
-                    };
-                    if (t != null)
+                    Action action = ParseAction(r);
+                    
+                    if (action != null)
                         actions.Add(action);
                 }
             }
 
             Event newEvent = new Event
             {
+                Id = id,
                 Name = eventName,
                 Stage = stage,
                 Description = description
@@ -108,7 +107,7 @@ namespace Server
             return newEvent;
         }
 
-        Tuple<string, string, int, int, int, int, int> ParseAction(XmlReader r)
+        Action ParseAction(XmlReader r)
         {
             if (r.Name.ToLower() != "action")
             {
@@ -122,6 +121,13 @@ namespace Server
             int food = 0;
             int oxygen = 0;
             int relic = 0;
+
+            int id = 0;
+            if (int.TryParse(r["id"], out id) == false)
+            {
+                Console.WriteLine("Id has invalid value");
+                return null;
+            }
 
             string actionName = r["name"];
             if (string.IsNullOrEmpty(actionName))
@@ -175,7 +181,17 @@ namespace Server
                 }
             }
 
-            return new Tuple<string, string, int, int, int, int, int>(actionName, actionDesc, surge, fuel, food, oxygen, relic);
+            return new Action
+            {
+                Id = id,
+                Name = actionName,
+                Description = actionDesc,
+                Surge = surge,
+                Fuel = fuel,
+                Food = food,
+                Oxygen = oxygen,
+                Relic = relic
+            };
         }
     }
 }

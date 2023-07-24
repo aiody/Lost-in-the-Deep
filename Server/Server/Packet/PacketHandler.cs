@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ServerCore;
 using Server;
 using Google.Protobuf.Protocol;
+using Action = Google.Protobuf.Protocol.Action;
 
 internal class PacketHandler
 {
@@ -44,5 +45,27 @@ internal class PacketHandler
         ClientSession clientSession = session as ClientSession;
 
         clientSession.MyPlayer.PlayerName = namePacket.Name;
+    }
+
+    public static void C_ChooseActionHandler(PacketSession session, IMessage packet)
+    {
+        C_ChooseAction chooseActionPacket = packet as C_ChooseAction;
+        ClientSession clientSession = session as ClientSession;
+
+        Event targetEvent = DataManager.Events.Find(e => e.Id == chooseActionPacket.EventId);
+        
+        if (targetEvent == null)
+            return;
+
+        Action targetAction = targetEvent.Actions.Where(a => a.Id == chooseActionPacket.ActionId).First();
+
+        // TODO: 선택한 액션이 유효한지 검증
+
+        Player player = clientSession.MyPlayer;
+        player.depth -= targetAction.Surge;
+        player.fuel += targetAction.Fuel;
+        player.food += targetAction.Food;
+        player.oxygen += targetAction.Oxygen;
+        player.relic += targetAction.Relic;
     }
 }
