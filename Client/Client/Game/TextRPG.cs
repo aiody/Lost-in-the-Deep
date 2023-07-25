@@ -7,11 +7,12 @@ namespace Client
     {
         List<Event> _events;
         Player _myPlayer = null;
+        UIRenderer renderer = new UIRenderer();
 
         public void Start()
         {
             NetworkManager.Instance.Init();
-            ShowMainScreen();
+            renderer.DrawMain();
             ShowGameStory();
             
             // 초기 설정
@@ -22,6 +23,9 @@ namespace Client
             }
             SelectCharacter();
             InputName();
+
+            renderer.DrawUIFrame();
+            renderer.DrawStatusBar();
         }
 
         public void Update()
@@ -30,49 +34,6 @@ namespace Client
             //Console.WriteLine("Gaming..");
             OccurEvent();
             //checkGameOver();
-            DrawUI();
-        }
-
-        void ShowMainScreen()
-        {
-            Console.Clear();
-            Console.WriteLine("                                                                                                                        ");
-            Console.WriteLine("                                                                                                                        ");
-            Console.WriteLine("                                                      ,,ir                                                              ");
-            Console.WriteLine("                                                     Bs:hr                                                              ");
-            Console.WriteLine("                                                     M,::                                                               ");
-            Console.WriteLine("                                                     hri                                                                ");
-            Console.WriteLine("                                                     Xr:                                                                ");
-            Console.WriteLine("                                                     9:                                                                 ");
-            Console.WriteLine("                                                   ,,2issh2ss                                                           ");
-            Console.WriteLine("                                                  G:, ,:,, ,r:                                                          ");
-            Console.WriteLine("                                                 irssi::s,r2sri:,:i:ii                                                  ");
-            Console.WriteLine("                                                 s GGG99G9sG:rs::r:,iMiri:sr:r:,                                        ");
-            Console.WriteLine("                                                ri:ssssss2s i9i:,ir::r:ii :i:hs:s,:,,                                   ");
-            Console.WriteLine("                                    :  :   ,:rrrr2M9h9GGhsi,,       ,r,,  :,,ir,ii,:Ms::                                ");
-            Console.WriteLine("                                 GM,M  Bi:rr:,  s,i::rsr: Mrr:r25ssrsi  ,,, , s  , ,2s,,r:                              ");
-            Console.WriteLine("                                 s9:2,,9s,  ,r2Gi       ,:9:   :,,  sBr, ,,:, s,rr  ir,: r5                             ");
-            Console.WriteLine("                                  BX9s2X: ,rBM9GBs    ,MBhSGs     ,MB2MBs  , ,MGXGB2si,i, s,                            ");
-            Console.WriteLine("                                 :srhirGi, GBi  MB5ssrBB:  GBr ,, BB,  BB, , 9Bi  MB5i  ,,:5                            ");
-            Console.WriteLine("                                  BsG2S9s  iBBXGBs ,:,rBB9MBX ,,, sBB2GBs ,, 9BBGMBrss  ,:Xi                            ");
-            Console.WriteLine("                                 ,BsM::B9:, ,rB5,  ,,, ,sB9, ,,,,, ,BBMsrsssrM,s2s, ss,shhi                             ");
-            Console.WriteLine("                                 BB,B  B99Gsi,5 ,,:,,    s: ,,,,,,  h  ,     h,   ,iBh9Gs                               ");
-            Console.WriteLine("                                 rr B  B  iXhB9srrsr:ri::G  ,,,::, r5  ,::::rMrs2hGMBs,                                 ");
-            Console.WriteLine("                                             rB2BB9MBMG2BGsssrsssrrM2s225299BM99sr:                                     ");
-            Console.WriteLine("                                              ,ir      ,r::rrsrsrrssii:::                                               ");
-            Console.WriteLine("                                                                                                                        ");
-            Console.WriteLine("                                                                                                                        ");
-            Console.WriteLine("               M                   M       :B                 ,B                ,rssr                                   ");
-            Console.WriteLine("              ,Br     s5S:  ,s52 :BBBi      ,    ,i       BB, :B,,,    ,:,      GBrrGBs   ::    ,:,     i,              ");
-            Console.WriteLine("               B:    BB,:BS BB,   BB,      rB  BMshB:    :BBs ,BssBB  B9rMB     9B   2B rBrsB: BGrGB sBssBB             ");
-            Console.WriteLine("              ,B,   rB   GB :h99  BM       sB  Br  BG     B5  :B   B iBi:sB,    9B   iB B9::B9,Br:sB, B   B:            ");
-            Console.WriteLine("              ,Bhrs: BM,iB2  ,:B, BB,      2B  Bs  B9     BB  :B  :B :Bi ,      MB  iB9 BM    ,Br    :B  hB             ");
-            Console.WriteLine("               ss29i  sXS,  2X2i   29:     ,B  Bi  Bs     rBM,,B  ,B  sMGGs     sBMMMi  ,GGGG  rM9Gs iBhMM,             ");
-            Console.WriteLine("                                                                                                     sB                 ");
-            Console.WriteLine("                                                                                                      :                 ");
-            Console.WriteLine("                                                                                                                        ");
-            Console.WriteLine("                                            계속 하려면 아무 키나 누르세요.                                             ");
-            Console.ReadKey();
         }
 
         void ShowGameStory()
@@ -116,6 +77,7 @@ namespace Client
                 NetworkManager.Instance.Send(selectPacket);
 
                 Console.WriteLine($"당신은 {_myPlayer.CharacterName}를 고르셨습니다.");
+                Thread.Sleep(1000);
             }
         }
 
@@ -249,42 +211,6 @@ namespace Client
         void GameOver()
         {
             Console.WriteLine("당신은 탈출에 실패하였습니다...");
-        }
-
-        void DrawUI()
-        {
-            // 플레이어의 깊이
-            {
-                for (int i = 0; i < Program.SCREEN_HEIGHT; i++)
-                {
-                    Console.SetCursorPosition(Program.SCREEN_WIDTH - 16, i);
-                    Console.Write("∬");
-                }
-
-                for (int i = 0; i < Program.SCREEN_HEIGHT; i++)
-                {
-                    Console.SetCursorPosition(Program.SCREEN_WIDTH - 2, i);
-                    Console.Write("∬");
-                }
-
-                // 내 위치
-                Console.SetCursorPosition(Program.SCREEN_WIDTH - 14, Program.SCREEN_HEIGHT - 1);
-                Console.Write("★");
-
-                // 다른 플레이어 위치
-                int otherPlayerPosStart = 12;
-                for (int i = 12; i > 2; i -= 2)
-                {
-                    Console.SetCursorPosition(Program.SCREEN_WIDTH - i, Program.SCREEN_HEIGHT - 1);
-                    Console.Write("  ");
-                }
-                foreach (Player p in PlayerManager.Instance.Players.Values)
-                {
-                    Console.SetCursorPosition(Program.SCREEN_WIDTH - otherPlayerPosStart, Program.SCREEN_HEIGHT - 1);
-                    Console.Write(p.icon);
-                    otherPlayerPosStart -= 2;
-                }
-            }
         }
     }
 }
