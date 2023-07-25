@@ -27,7 +27,7 @@ namespace Client
         {
             //Console.Clear();
             //Console.WriteLine("Gaming..");
-            //OccurEvent();
+            OccurEvent();
             //checkGameOver();
             DrawUI();
         }
@@ -137,6 +137,14 @@ namespace Client
             Action curAction = curEvent.Actions[input - 1];
             Console.WriteLine(curAction.Name);
             Console.WriteLine(curAction.Description);
+
+            // 패킷 보내기
+            C_ChooseAction chooseActionPacket = new C_ChooseAction
+            {
+                ActionId = curAction.Id,
+                EventId = curEvent.Id
+            };
+            NetworkManager.Instance.Send(chooseActionPacket);
 
             Thread.Sleep(500);
             if (curAction.Surge > 0)
