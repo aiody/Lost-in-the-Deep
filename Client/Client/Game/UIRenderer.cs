@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Action = Google.Protobuf.Protocol.Action;
 
 namespace Client
 {
@@ -163,13 +164,50 @@ namespace Client
             SetCursorPositionInputArea();
         }
 
-        public void DrawEventArea()
+        public void DrawEventArea(string name, string description)
         {
+            // 이벤트 이름 출력
+            {
+                Console.SetCursorPosition(1, 5);
+                Console.WriteLine(name);
+            }
+            
+            // 이벤트 설명 출력
+            {
+                Console.SetCursorPosition(1, 6);
+                description = description.Replace("\t", string.Empty);
+                string[] lines = description.Split("\n");
+                List<string> results = new List<string>();
+
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    if (string.IsNullOrWhiteSpace(lines[i]))
+                        results.Add("");
+                    else
+                    {
+                        var str = lines[i].Chunk(56).Select(x => new string(x));
+                        results.AddRange(str);
+                    }
+                }
+
+                for (int i = 0; i < results.Count; i++)
+                {
+                    Console.SetCursorPosition(1, i + 7);
+                    Console.WriteLine(results[i]);
+                }
+            }
+
             SetCursorPositionInputArea();
         }
-
-        public void DrawActionArea()
+        
+        public void DrawActionArea(List<Action> actions)
         {
+            for (int i = 0; i < actions.Count; i++)
+            {
+                Console.SetCursorPosition(1, i + 32);
+                Console.WriteLine($"{i + 1}: {actions[i].Name}");
+            }
+
             SetCursorPositionInputArea();
         }
 

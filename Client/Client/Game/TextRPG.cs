@@ -119,12 +119,9 @@ namespace Client
             List<Event> availableEvents = _events.FindAll(e => e.Stage == stage);
             Random rand = new Random();
             Event curEvent = availableEvents[rand.Next(0, availableEvents.Count)];
-            Console.WriteLine(curEvent.Name);
-            Console.WriteLine(curEvent.Description);
-            for (int i = 0; i < curEvent.Actions.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}: {curEvent.Actions[i].Name}");
-            }
+
+            renderer.DrawEventArea(curEvent.Name, curEvent.Description);
+            renderer.DrawActionArea(curEvent.Actions.ToList());
 
             // choose action
             int input = 0;
