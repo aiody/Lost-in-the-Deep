@@ -9,8 +9,8 @@ namespace Client
 {
     internal class UIRenderer
     {
-        readonly int width = Program.SCREEN_WIDTH;
-        readonly int height = Program.SCREEN_HEIGHT;
+        readonly static int width = Program.SCREEN_WIDTH;
+        readonly static int height = Program.SCREEN_HEIGHT;
 
         public void DrawMain()
         {
@@ -164,17 +164,23 @@ namespace Client
             SetCursorPositionInputArea();
         }
 
+        static int START_EVENT_AREA_X = 1;
+        static int START_EVENT_AREA_Y = 5;
+        static int END_EVENT_AREA_X = 100;
+        static int END_EVENT_AREA_Y = 30;
         public void DrawEventArea(string name, string description)
         {
+            // 화면 지우기
+            EraseArea(START_EVENT_AREA_X, START_EVENT_AREA_Y, END_EVENT_AREA_X, END_EVENT_AREA_Y);
+
             // 이벤트 이름 출력
             {
-                Console.SetCursorPosition(1, 5);
+                Console.SetCursorPosition(START_EVENT_AREA_X, START_EVENT_AREA_Y);
                 Console.WriteLine(name);
             }
             
             // 이벤트 설명 출력
             {
-                Console.SetCursorPosition(1, 6);
                 description = description.Replace("\t", string.Empty);
                 string[] lines = description.Split("\n");
                 List<string> results = new List<string>();
@@ -192,19 +198,27 @@ namespace Client
 
                 for (int i = 0; i < results.Count; i++)
                 {
-                    Console.SetCursorPosition(1, i + 7);
+                    Console.SetCursorPosition(START_EVENT_AREA_X, i + START_EVENT_AREA_Y + 2);
                     Console.WriteLine(results[i]);
                 }
             }
 
             SetCursorPositionInputArea();
         }
-        
+
+        static int START_ACTION_AREA_X = 1;
+        static int START_ACTION_AREA_Y = 32;
+        static int END_ACTION_AREA_X = width - 1;
+        static int END_ACTION_AREA_Y = 36;
         public void DrawActionArea(List<Action> actions)
         {
+            // 화면 지우기
+            EraseArea(START_ACTION_AREA_X, START_ACTION_AREA_Y, END_ACTION_AREA_X, END_ACTION_AREA_Y);
+
+            // 액션 출력
             for (int i = 0; i < actions.Count; i++)
             {
-                Console.SetCursorPosition(1, i + 32);
+                Console.SetCursorPosition(START_ACTION_AREA_X, i + START_ACTION_AREA_Y);
                 Console.WriteLine($"{i + 1}: {actions[i].Name}");
             }
 
@@ -216,9 +230,29 @@ namespace Client
             SetCursorPositionInputArea();
         }
 
+        static int START_INPUT_AREA_X = 2;
+        static int START_INPUT_AREA_Y = height - 2;
+        static int END_INPUT_AREA_X = width - 1;
+        static int END_INPUT_AREA_Y = height - 2;
         void SetCursorPositionInputArea()
         {
-            Console.SetCursorPosition(2, height - 2);
+            // 화면 지우기
+            EraseArea(START_INPUT_AREA_X, START_INPUT_AREA_Y, END_INPUT_AREA_X, END_INPUT_AREA_Y);
+
+            // 커서 옮기기
+            Console.SetCursorPosition(START_INPUT_AREA_X, START_INPUT_AREA_Y);
+        }
+
+        void EraseArea(int startX, int startY, int endX, int endY)
+        {
+            for (int x = startX; x <= endX; x++)
+            {
+                for (int y = startY; y <= endY; y++)
+                {
+                    Console.SetCursorPosition(x, y);
+                    Console.Write(" ");
+                }
+            }
         }
     }
 }
