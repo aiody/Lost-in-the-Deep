@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Google.Protobuf.WellKnownTypes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -181,20 +182,7 @@ namespace Client
             
             // 이벤트 설명 출력
             {
-                description = description.Replace("\t", string.Empty);
-                string[] lines = description.Split("\n");
-                List<string> results = new List<string>();
-
-                for (int i = 0; i < lines.Length; i++)
-                {
-                    if (string.IsNullOrWhiteSpace(lines[i]))
-                        results.Add("");
-                    else
-                    {
-                        var str = lines[i].Chunk(56).Select(x => new string(x));
-                        results.AddRange(str);
-                    }
-                }
+                List<string> results = ChunkString(description);
 
                 for (int i = 0; i < results.Count; i++)
                 {
@@ -204,6 +192,68 @@ namespace Client
             }
 
             SetCursorPositionInputArea();
+        }
+
+        public void DrawActionResult(Action action, int curDepth)
+        {
+            // 화면 지우기
+            EraseArea(START_EVENT_AREA_X, START_EVENT_AREA_Y, END_EVENT_AREA_X, END_EVENT_AREA_Y);
+
+            // 결과 이름 출력
+            {
+                Console.SetCursorPosition(START_EVENT_AREA_X, START_EVENT_AREA_Y);
+                Console.WriteLine(action.Name);
+            }
+
+            // 결과 설명 출력
+            {
+                List<string> results = ChunkString(action.Description);
+
+                for (int i = 0; i < results.Count; i++)
+                {
+                    Console.SetCursorPosition(START_EVENT_AREA_X, i + START_EVENT_AREA_Y + 2);
+                    Console.WriteLine(results[i]);
+                }
+
+                Thread.Sleep(500);
+                Console.SetCursorPosition(START_EVENT_AREA_X, START_EVENT_AREA_Y + results.Count + 3);
+                if (action.Surge > 0)
+                    Console.WriteLine($"{Math.Abs(action.Surge)}만큼 상승하였습니다.");
+                else
+                    Console.WriteLine($"{Math.Abs(action.Surge)}만큼 하강하였습니다.");
+
+                Thread.Sleep(500);
+                Console.SetCursorPosition(START_EVENT_AREA_X, START_EVENT_AREA_Y + results.Count + 4);
+                if (action.Fuel > 0)
+                    Console.WriteLine($"연료를 {Math.Abs(action.Fuel)}만큼 획득했습니다.");
+                else
+                    Console.WriteLine($"연료를 {Math.Abs(action.Fuel)}만큼 소모했습니다.");
+
+                Thread.Sleep(500);
+                Console.SetCursorPosition(START_EVENT_AREA_X, START_EVENT_AREA_Y + results.Count + 5);
+                if (action.Food > 0)
+                    Console.WriteLine($"식량을 {Math.Abs(action.Food)}만큼 획득했습니다.");
+                else
+                    Console.WriteLine($"식량을 {Math.Abs(action.Food)}만큼 소모했습니다.");
+
+                Thread.Sleep(500);
+                Console.SetCursorPosition(START_EVENT_AREA_X, START_EVENT_AREA_Y + results.Count + 6);
+                if (action.Oxygen > 0)
+                    Console.WriteLine($"산소를 {Math.Abs(action.Oxygen)}만큼 획득했습니다.");
+                else
+                    Console.WriteLine($"산소를 {Math.Abs(action.Oxygen)}만큼 소모했습니다.");
+
+                Thread.Sleep(500);
+                Console.SetCursorPosition(START_EVENT_AREA_X, START_EVENT_AREA_Y + results.Count + 7);
+                if (action.Relic > 0)
+                    Console.WriteLine($"유물을 {Math.Abs(action.Relic)}만큼 얻었습니다.");
+                else
+                    Console.WriteLine($"유물을 {Math.Abs(action.Relic)}만큼 잃었습니다.");
+
+                Thread.Sleep(500);
+                Console.SetCursorPosition(START_EVENT_AREA_X, START_EVENT_AREA_Y + results.Count + 8);
+                Console.WriteLine($"현재 깊이 {curDepth}");
+            }
         }
 
         static int START_ACTION_AREA_X = 1;
@@ -230,6 +280,14 @@ namespace Client
             SetCursorPositionInputArea();
         }
 
+        public void PleaseTypeAgain()
+        {
+            SetCursorPositionInputArea();
+            Console.Write("다시 입력해주세요.");
+            Thread.Sleep(1000);
+            SetCursorPositionInputArea();
+        }
+
         static int START_INPUT_AREA_X = 2;
         static int START_INPUT_AREA_Y = height - 2;
         static int END_INPUT_AREA_X = width - 1;
@@ -253,6 +311,28 @@ namespace Client
                     Console.Write(" ");
                 }
             }
+        }
+
+        List<string> ChunkString(string str)
+        {
+            // 탭 제거
+            string s = str.Replace("\t", string.Empty);
+            // 줄바꿈이 있으면 문자열 나눔
+            string[] lines = s.Split("\n");
+
+            List<string> results = new List<string>();
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (string.IsNullOrWhiteSpace(lines[i]))
+                    results.Add("");
+                else
+                {
+                    var chunkedStr = lines[i].Chunk(56).Select(x => new string(x));
+                    results.AddRange(chunkedStr);
+                }
+            }
+
+            return results;
         }
     }
 }

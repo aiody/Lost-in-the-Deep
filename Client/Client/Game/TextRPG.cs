@@ -132,13 +132,11 @@ namespace Client
                 if (input > 0 && input <= curEvent.Actions.Count)
                     break;
 
-                Console.WriteLine("다시 입력해주세요.");
+                renderer.PleaseTypeAgain();
             }
 
             // ouput action result
             Action curAction = curEvent.Actions[input - 1];
-            Console.WriteLine(curAction.Name);
-            Console.WriteLine(curAction.Description);
 
             // 패킷 보내기
             C_ChooseAction chooseActionPacket = new C_ChooseAction
@@ -148,44 +146,13 @@ namespace Client
             };
             NetworkManager.Instance.Send(chooseActionPacket);
 
-            Thread.Sleep(500);
-            if (curAction.Surge > 0)
-                Console.WriteLine($"{Math.Abs(curAction.Surge)}만큼 상승하였습니다.");
-            else
-                Console.WriteLine($"{Math.Abs(curAction.Surge)}만큼 하강하였습니다.");
-
-            Thread.Sleep(500);
-            if (curAction.Fuel > 0)
-                Console.WriteLine($"연료를 {Math.Abs(curAction.Fuel)}만큼 획득했습니다.");
-            else
-                Console.WriteLine($"연료를 {Math.Abs(curAction.Fuel)}만큼 소모했습니다.");
-
-            Thread.Sleep(500);
-            if (curAction.Food > 0)
-                Console.WriteLine($"식량을 {Math.Abs(curAction.Food)}만큼 획득했습니다.");
-            else
-                Console.WriteLine($"식량을 {Math.Abs(curAction.Food)}만큼 소모했습니다.");
-
-            Thread.Sleep(500);
-            if (curAction.Oxygen > 0)
-                Console.WriteLine($"산소를 {Math.Abs(curAction.Oxygen)}만큼 획득했습니다.");
-            else
-                Console.WriteLine($"산소를 {Math.Abs(curAction.Oxygen)}만큼 소모했습니다.");
-
-            Thread.Sleep(500);
-            if (curAction.Relic > 0)
-                Console.WriteLine($"유물을 {Math.Abs(curAction.Relic)}만큼 얻었습니다.");
-            else
-                Console.WriteLine($"유물을 {Math.Abs(curAction.Relic)}만큼 잃었습니다.");
-
             _myPlayer.Fuel += curAction.Fuel;
             _myPlayer.Food += curAction.Food;
             _myPlayer.Oxygen += curAction.Oxygen;
             _myPlayer.Relic += curAction.Relic;
-
-            Thread.Sleep(500);
             _myPlayer.Depth -= curAction.Surge;
-            Console.WriteLine($"현재 깊이 {_myPlayer.Depth}");
+
+            renderer.DrawActionResult(curAction, _myPlayer.Depth);
         }
 
         void checkGameOver()
