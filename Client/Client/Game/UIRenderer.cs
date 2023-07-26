@@ -127,11 +127,6 @@ namespace Client
                 Console.Write("5000m");
             }
 
-            SetCursorPositionInputArea();
-        }
-
-        public void DrawStatusBar()
-        {
             // 이름
             {
                 Console.SetCursorPosition(4, 2);
@@ -161,6 +156,37 @@ namespace Client
                 Console.SetCursorPosition(101, 2);
                 Console.Write("유물 : ");
             }
+
+            SetCursorPositionInputArea();
+        }
+
+        public void DrawName(string name, string job)
+        {
+            EraseArea(11, 2, 30, 2);
+
+            Console.SetCursorPosition(11, 2);
+            Console.Write($"{name}({job})");
+
+            SetCursorPositionInputArea();
+        }
+
+        public void DrawStatusBar(int fuel, int oxygen, int food, int relic)
+        {
+            EraseArea(42, 2, 52, 2);
+            Console.SetCursorPosition(42, 2);
+            Console.Write(fuel);
+
+            EraseArea(64, 2, 74, 2);
+            Console.SetCursorPosition(64, 2);
+            Console.Write(oxygen);
+
+            EraseArea(86, 2, 96, 2);
+            Console.SetCursorPosition(86, 2);
+            Console.Write(food);
+
+            EraseArea(108, 2, 118, 2);
+            Console.SetCursorPosition(108, 2);
+            Console.Write(relic);
 
             SetCursorPositionInputArea();
         }

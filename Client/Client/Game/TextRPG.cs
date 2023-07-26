@@ -25,13 +25,12 @@ namespace Client
             InputName();
 
             renderer.DrawUIFrame();
-            renderer.DrawStatusBar();
+            renderer.DrawName(_myPlayer.name, _myPlayer.CharacterName);
+            renderer.DrawStatusBar(_myPlayer.Fuel, _myPlayer.Oxygen, _myPlayer.Food, _myPlayer.Relic);
         }
 
         public void Update()
         {
-            //Console.Clear();
-            //Console.WriteLine("Gaming..");
             OccurEvent();
             //checkGameOver();
         }
@@ -153,6 +152,7 @@ namespace Client
             _myPlayer.Depth -= curAction.Surge;
 
             renderer.DrawActionResult(curAction, _myPlayer.Depth);
+            renderer.DrawStatusBar(_myPlayer.Fuel, _myPlayer.Oxygen, _myPlayer.Food, _myPlayer.Relic);
         }
 
         void checkGameOver()
