@@ -121,7 +121,7 @@ namespace Client
             {
                 Console.SetCursorPosition(105, 5);
                 Console.Write("0m");
-                Console.SetCursorPosition(102, 17);
+                Console.SetCursorPosition(102, 18);
                 Console.Write("2500m");
                 Console.SetCursorPosition(102, 30);
                 Console.Write("5000m");
@@ -284,7 +284,7 @@ namespace Client
 
         static int START_ACTION_AREA_X = 1;
         static int START_ACTION_AREA_Y = 32;
-        static int END_ACTION_AREA_X = width - 1;
+        static int END_ACTION_AREA_X = width - 2;
         static int END_ACTION_AREA_Y = 36;
         public void DrawActionArea(List<Action> actions)
         {
@@ -301,8 +301,19 @@ namespace Client
             SetCursorPositionInputArea();
         }
 
-        public void DrawDepthDashboard()
+        static int START_DEPTH_DASHBOARD_X = 109;
+        static int START_DEPTH_DASHBOARD_Y = 5;
+        static int END_DEPTH_DASHBOARD_X = width - 2;
+        static int END_DEPTH_DASHBOARD_Y = 30;
+        public void DrawDepthDashboard(int depth)
         {
+            // 화면 지우기
+            EraseArea(START_DEPTH_DASHBOARD_X, START_DEPTH_DASHBOARD_Y, END_DEPTH_DASHBOARD_X, END_DEPTH_DASHBOARD_Y);
+
+            int iconPosY = (depth - 1) / 200 + 6;
+            Console.SetCursorPosition(START_DEPTH_DASHBOARD_X, iconPosY);
+            Console.Write("*");
+
             SetCursorPositionInputArea();
         }
 
@@ -316,7 +327,7 @@ namespace Client
 
         static int START_INPUT_AREA_X = 2;
         static int START_INPUT_AREA_Y = height - 2;
-        static int END_INPUT_AREA_X = width - 1;
+        static int END_INPUT_AREA_X = width - 2;
         static int END_INPUT_AREA_Y = height - 2;
         void SetCursorPositionInputArea()
         {

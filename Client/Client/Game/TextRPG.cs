@@ -27,6 +27,7 @@ namespace Client
             renderer.DrawUIFrame();
             renderer.DrawName(_myPlayer.name, _myPlayer.CharacterName);
             renderer.DrawStatusBar(_myPlayer.Fuel, _myPlayer.Oxygen, _myPlayer.Food, _myPlayer.Relic);
+            renderer.DrawDepthDashboard(_myPlayer.Depth);
         }
 
         public void Update()
@@ -153,6 +154,7 @@ namespace Client
 
             renderer.DrawActionResult(curAction, _myPlayer.Depth);
             renderer.DrawStatusBar(_myPlayer.Fuel, _myPlayer.Oxygen, _myPlayer.Food, _myPlayer.Relic);
+            renderer.DrawDepthDashboard(_myPlayer.Depth);
         }
 
         void checkGameOver()
