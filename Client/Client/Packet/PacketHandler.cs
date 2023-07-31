@@ -49,6 +49,7 @@ internal class PacketHandler
             myPlayer.Character = infoPacket.Character;
             myPlayer.Depth = infoPacket.Depth;
             myPlayer.Fuel = infoPacket.Fuel;
+            myPlayer.Oxygen = infoPacket.Oxygen;
             myPlayer.Food = infoPacket.Food;
             myPlayer.Relic = infoPacket.Relic;
         }

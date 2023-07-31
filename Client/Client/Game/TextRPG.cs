@@ -8,19 +8,22 @@ namespace Client
         List<Event> _events;
         Player _myPlayer = null;
         UIRenderer renderer = new UIRenderer();
+        bool _isEndGame = false;
 
         public void Start()
         {
             NetworkManager.Instance.Init();
+            InitGame();
+        }
+
+        void InitGame()
+        {
             renderer.DrawMain();
-            ShowGameStory();
-            
-            // 초기 설정
-            while (_myPlayer == null)
-            {
-                _myPlayer = PlayerManager.Instance.MyPlayer;
-                LoadEvents();
-            }
+            renderer.DrawGameStory();
+
+            _myPlayer = PlayerManager.Instance.MyPlayer;
+            LoadEvents();
+
             SelectCharacter();
             InputName();
 
@@ -28,30 +31,23 @@ namespace Client
             renderer.DrawName(_myPlayer.name, _myPlayer.CharacterName);
             renderer.DrawStatusBar(_myPlayer.Fuel, _myPlayer.Oxygen, _myPlayer.Food, _myPlayer.Relic);
             renderer.DrawDepthDashboard(_myPlayer.Depth);
+
+            _isEndGame = false;
         }
 
         public void Update()
         {
-            OccurEvent();
-            //checkGameOver();
-        }
-
-        void ShowGameStory()
-        {
-            Console.Clear();
-            Console.WriteLine("당신은 심해에 있는 유적을 탐험하여 유물을 해수면으로 가져오는 것이 목표인 프로젝트 팀에 속해있다.");
-            Console.WriteLine("임무 수행중에 본체 잠수함에 문제가 생겨 탈출해야 한다.");
-            Console.WriteLine("다행히 개인용 구명선이 있지만 산소와 연료가 제한되어 있다.");
-            Console.WriteLine("당신은 지상으로 올라갔을 때 유물을 가져간다면 얻게 될 부와 명예를 떠올리며 유물을 최대한 챙기기로 한다.");
-            Console.WriteLine();
-            Console.WriteLine("계속 하려면 아무 키나 누르고 Enter를 누르시오.");
-            Console.ReadKey();
+            if (_isEndGame == false)
+            {
+                OccurEvent();
+                CheckGameOver();
+            }
         }
 
         void SelectCharacter()
         {
             int selectedNumber = 0;
-            while (_myPlayer.Character == null)
+            while (true)
             {
                 Console.Clear();
                 Console.WriteLine("난이도가 어려운 프로젝트인 만큼 팀에는 여러 인재들이 존재했다.");
@@ -63,22 +59,21 @@ namespace Client
                 
                 int.TryParse(Console.ReadLine(), out selectedNumber);
 
-                if (selectedNumber != 1 && selectedNumber != 2 && selectedNumber != 3)
-                {
-                    Console.WriteLine("다시 골라주세요.");
-                    Thread.Sleep(1000);
-                    continue;
-                }
+                if (selectedNumber == 1 || selectedNumber == 2 || selectedNumber == 3)
+                    break;
 
-                CharacterType type = (CharacterType)(selectedNumber - 1);
-                _myPlayer.Character = type;
-
-                C_SelectCharacter selectPacket = new C_SelectCharacter { Character = type };
-                NetworkManager.Instance.Send(selectPacket);
-
-                Console.WriteLine($"당신은 {_myPlayer.CharacterName}를 고르셨습니다.");
+                Console.WriteLine("다시 골라주세요.");
                 Thread.Sleep(1000);
             }
+
+            CharacterType type = (CharacterType)(selectedNumber - 1);
+            _myPlayer.Character = type;
+
+            C_SelectCharacter selectPacket = new C_SelectCharacter { Character = type };
+            NetworkManager.Instance.Send(selectPacket);
+
+            Console.WriteLine($"당신은 {_myPlayer.CharacterName}를 고르셨습니다.");
+            Thread.Sleep(1000);
         }
 
         void InputName()
@@ -155,28 +150,69 @@ namespace Client
             renderer.DrawActionResult(curAction, _myPlayer.Depth);
             renderer.DrawStatusBar(_myPlayer.Fuel, _myPlayer.Oxygen, _myPlayer.Food, _myPlayer.Relic);
             renderer.DrawDepthDashboard(_myPlayer.Depth);
+            renderer.ContinueWithEnter();
         }
 
-        void checkGameOver()
+        void CheckGameOver()
         {
-            Thread.Sleep(1000);
-            Console.Clear();
-
             if (_myPlayer.Depth <= 0)
+            {
+                _isEndGame = true;
                 Ending();
+            }
 
             if (_myPlayer.Fuel <= 0 || _myPlayer.Food <= 0 || _myPlayer.Oxygen <= 0)
+            {
+                _isEndGame = true;
                 GameOver();
+            }
         }
 
         void Ending()
         {
+            Thread.Sleep(1000);
+            Console.Clear();
             Console.WriteLine("당신은 탈출에 성공하였습니다~!");
+            Retry();
         }
 
         void GameOver()
         {
+            Thread.Sleep(1000);
+            Console.Clear();
             Console.WriteLine("당신은 탈출에 실패하였습니다...");
+            Retry();
+        }
+
+        void Retry()
+        {
+            Console.WriteLine("다시 시도하겠습니까?");
+            Console.WriteLine("1. 다시 시작");
+            Console.WriteLine("2. 게임 종료");
+
+            int input = 0;
+            while (true)
+            {
+                int.TryParse(Console.ReadLine(), out input);
+
+                if (input == 1 || input == 2)
+                    break;
+
+                Console.WriteLine("다시 골라주세요.");
+                Thread.Sleep(1000);
+            }
+
+            if (input == 1)
+            {
+                C_Retry retryPacket = new C_Retry();
+                NetworkManager.Instance.Send(retryPacket);
+
+                InitGame();
+            }
+            else
+            {
+                Environment.Exit(0);
+            }
         }
     }
 }

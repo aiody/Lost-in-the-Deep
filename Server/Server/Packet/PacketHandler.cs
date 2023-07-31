@@ -20,7 +20,7 @@ internal class PacketHandler
         {
             myPlayer.type = selectCharacterPacket.Character;
             myPlayer.depth = 5000;
-            myPlayer.fuel = 100;
+            myPlayer.fuel = 300;
             myPlayer.food = 100;
             myPlayer.oxygen = 1000;
             myPlayer.relic = 50;
@@ -61,11 +61,18 @@ internal class PacketHandler
 
         // TODO: 선택한 액션이 유효한지 검증
 
-        Player player = clientSession.MyPlayer;
-        player.depth -= targetAction.Surge;
-        player.fuel += targetAction.Fuel;
-        player.food += targetAction.Food;
-        player.oxygen += targetAction.Oxygen;
-        player.relic += targetAction.Relic;
+        clientSession.MyPlayer.ApplyActionResult(targetAction);
+    }
+
+    public static void C_RetryHandler(PacketSession session, IMessage packet)
+    {
+        C_Retry retryPacket = packet as C_Retry;
+        ClientSession clientSession = session as ClientSession;
+
+        GameRoom room = RoomManager.Instance.GetRecentRoom();
+        if (room == null)
+            room = RoomManager.Instance.Add();
+
+        room.EnterGame(clientSession.MyPlayer);
     }
 }

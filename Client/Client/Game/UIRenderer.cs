@@ -55,6 +55,18 @@ namespace Client
             Console.ReadKey();
         }
 
+        public void DrawGameStory()
+        {
+            Console.Clear();
+            Console.WriteLine("당신은 심해에 있는 유적을 탐험하여 유물을 해수면으로 가져오는 것이 목표인 프로젝트 팀에 속해있다.");
+            Console.WriteLine("임무 수행중에 본체 잠수함에 문제가 생겨 탈출해야 한다.");
+            Console.WriteLine("다행히 개인용 구명선이 있지만 산소와 연료가 제한되어 있다.");
+            Console.WriteLine("당신은 지상으로 올라갔을 때 유물을 가져간다면 얻게 될 부와 명예를 떠올리며 유물을 최대한 챙기기로 한다.");
+            Console.WriteLine();
+            Console.WriteLine("계속 하려면 아무 키나 누르고 Enter를 누르시오.");
+            Console.ReadKey();
+        }
+
         public void DrawUIFrame()
         {
             Console.Clear();
@@ -323,6 +335,13 @@ namespace Client
             Console.Write("다시 입력해주세요.");
             Thread.Sleep(1000);
             SetCursorPositionInputArea();
+        }
+
+        public void ContinueWithEnter()
+        {
+            SetCursorPositionInputArea();
+            Console.Write("Enter를 누르고 계속 진행하기.");
+            Console.ReadLine();
         }
 
         static int START_INPUT_AREA_X = 2;

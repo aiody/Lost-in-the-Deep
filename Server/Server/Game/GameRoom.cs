@@ -56,6 +56,9 @@ namespace Server
             if (_players.TryGetValue(playerId, out player) == false)
                 return;
 
+            _players.Remove(playerId);
+            player.Room = null;
+
             // 본인한테 정보 전송
             {
                 S_LeaveGame leavePacket = new S_LeaveGame();

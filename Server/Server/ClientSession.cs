@@ -8,7 +8,7 @@ internal class ClientSession : PacketSession
 
     public override void OnConnected(EndPoint endPoint)
     {
-        Console.WriteLine($"OnConneced : {endPoint}");
+        Console.WriteLine($"OnConnected : {endPoint}");
 
         GameRoom room = RoomManager.Instance.GetRecentRoom();
         if (room == null)

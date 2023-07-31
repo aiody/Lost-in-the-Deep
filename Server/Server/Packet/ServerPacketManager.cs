@@ -25,6 +25,8 @@ internal class PacketManager
         _handler.Add((ushort)MsgId.CSetPlayerName, PacketHandler.C_SetPlayerNameHandler);
         _onRecv.Add((ushort)MsgId.CChooseAction, MakePacket<C_ChooseAction>);
         _handler.Add((ushort)MsgId.CChooseAction, PacketHandler.C_ChooseActionHandler);
+        _onRecv.Add((ushort)MsgId.CRetry, MakePacket<C_Retry>);
+        _handler.Add((ushort)MsgId.CRetry, PacketHandler.C_RetryHandler);
     }
 
     public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
