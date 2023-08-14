@@ -24,7 +24,7 @@ namespace Server
             // 본인한테 정보 전송
             {
                 S_EnterGame enterPacket = new S_EnterGame();
-                enterPacket.PlayerId = player.Id;
+                enterPacket.Player = player.Info;
                 foreach (Event e in DataManager.Events)
                     enterPacket.Events.Add(e);
                 player.Session.Send(enterPacket);
@@ -33,7 +33,7 @@ namespace Server
                 foreach (Player p in _players.Values)
                 {
                     if (p != player)
-                        spawnPacket.PlayerIds.Add(p.Id);
+                        spawnPacket.Players.Add(p.Info);
                 }
                 player.Session.Send(spawnPacket);
             }
@@ -41,7 +41,7 @@ namespace Server
             // 타인한테 정보 전송
             {
                 S_Spawn spawnPacket = new S_Spawn();
-                spawnPacket.PlayerIds.Add(player.Id);
+                spawnPacket.Players.Add(player.Info);
                 foreach (Player p in _players.Values)
                 {
                     if (p != player)

@@ -18,22 +18,22 @@ internal class PacketHandler
 
         Player myPlayer = clientSession.MyPlayer;
         {
-            myPlayer.type = selectCharacterPacket.Character;
-            myPlayer.depth = 5000;
-            myPlayer.fuel = 300;
-            myPlayer.food = 100;
-            myPlayer.oxygen = 1000;
-            myPlayer.relic = 50;
+            myPlayer.Info.Character = selectCharacterPacket.Character;
+            myPlayer.Info.Depth = 5000;
+            myPlayer.Info.Fuel = 300;
+            myPlayer.Info.Food = 100;
+            myPlayer.Info.Oxygen = 1000;
+            myPlayer.Info.Relic = 50;
         }
 
         S_InitialCharacterInfo initPacket = new S_InitialCharacterInfo()
         {
-            Character = myPlayer.type,
-            Depth = myPlayer.depth,
-            Fuel = myPlayer.fuel,
-            Food = myPlayer.food,
-            Oxygen = myPlayer.oxygen,
-            Relic = myPlayer.relic
+            Character = myPlayer.Info.Character,
+            Depth = myPlayer.Info.Depth,
+            Fuel = myPlayer.Info.Fuel,
+            Food = myPlayer.Info.Food,
+            Oxygen = myPlayer.Info.Oxygen,
+            Relic = myPlayer.Info.Relic
         };
 
         clientSession.Send(initPacket);
@@ -44,7 +44,7 @@ internal class PacketHandler
         C_SetPlayerName namePacket = packet as C_SetPlayerName;
         ClientSession clientSession = session as ClientSession;
 
-        clientSession.MyPlayer.PlayerName = namePacket.Name;
+        clientSession.MyPlayer.Info.Name = namePacket.Name;
     }
 
     public static void C_ChooseActionHandler(PacketSession session, IMessage packet)

@@ -14,7 +14,7 @@ internal class PacketHandler
     {
         S_EnterGame enterPacket = packet as S_EnterGame;
 
-        PlayerManager.Instance.Add(enterPacket.PlayerId, true);
+        PlayerManager.Instance.Add(enterPacket.Player, true);
 
         foreach (Event e in enterPacket.Events)
             DataManager.Instance.Events.Add(e);
@@ -29,8 +29,8 @@ internal class PacketHandler
     {
         S_Spawn spawnPacket = packet as S_Spawn;
 
-        foreach (int id in spawnPacket.PlayerIds)
-            PlayerManager.Instance.Add(id);
+        foreach (PlayerInfo info in spawnPacket.Players)
+            PlayerManager.Instance.Add(info);
     }
 
     public static void S_DespawnHandler(PacketSession session, IMessage packet)
@@ -46,12 +46,23 @@ internal class PacketHandler
         S_InitialCharacterInfo infoPacket = packet as S_InitialCharacterInfo;
         Player myPlayer = PlayerManager.Instance.MyPlayer;
         {
-            myPlayer.Character = infoPacket.Character;
-            myPlayer.Depth = infoPacket.Depth;
-            myPlayer.Fuel = infoPacket.Fuel;
-            myPlayer.Oxygen = infoPacket.Oxygen;
-            myPlayer.Food = infoPacket.Food;
-            myPlayer.Relic = infoPacket.Relic;
+            myPlayer.Info.Character = infoPacket.Character;
+            myPlayer.Info.Depth = infoPacket.Depth;
+            myPlayer.Info.Fuel = infoPacket.Fuel;
+            myPlayer.Info.Oxygen = infoPacket.Oxygen;
+            myPlayer.Info.Food = infoPacket.Food;
+            myPlayer.Info.Relic = infoPacket.Relic;
+        }
+    }
+
+    public static void S_UpdatePlayerInfoHandler(PacketSession session, IMessage packet)
+    {
+        S_UpdatePlayerInfo updatePacket = packet as S_UpdatePlayerInfo;
+
+        Player player = PlayerManager.Instance.Find(updatePacket.Player.PlayerId);
+        if (player != null)
+        {
+            player.Info = updatePacket.Player;
         }
     }
 }

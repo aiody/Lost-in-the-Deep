@@ -317,14 +317,16 @@ namespace Client
         static int START_DEPTH_DASHBOARD_Y = 5;
         static int END_DEPTH_DASHBOARD_X = width - 2;
         static int END_DEPTH_DASHBOARD_Y = 30;
-        public void DrawDepthDashboard(int depth)
+        public void DrawDepthDashboard(int myDepth, int[] otherDepths)
         {
             // 화면 지우기
             EraseArea(START_DEPTH_DASHBOARD_X, START_DEPTH_DASHBOARD_Y, END_DEPTH_DASHBOARD_X, END_DEPTH_DASHBOARD_Y);
 
-            int iconPosY = (depth - 1) / 200 + 6;
+            int iconPosY = (myDepth - 1) / 200 + 6;
             Console.SetCursorPosition(START_DEPTH_DASHBOARD_X, iconPosY);
             Console.Write("*");
+
+            DrawDepthOfOtherPlayers(otherDepths);
 
             SetCursorPositionInputArea();
         }
@@ -342,6 +344,16 @@ namespace Client
             SetCursorPositionInputArea();
             Console.Write("Enter를 누르고 계속 진행하기.");
             Console.ReadLine();
+        }
+
+        void DrawDepthOfOtherPlayers(int[] depths)
+        {
+            for (int i = 0; i < depths.Length; i++)
+            {
+                int iconPosY = (depths[i] - 1) / 200 + 6;
+                Console.SetCursorPosition(START_DEPTH_DASHBOARD_X + 1 + i, iconPosY);
+                Console.Write("&");
+            }
         }
 
         static int START_INPUT_AREA_X = 2;

@@ -28,9 +28,10 @@ namespace Client
             InputName();
 
             renderer.DrawUIFrame();
-            renderer.DrawName(_myPlayer.name, _myPlayer.CharacterName);
-            renderer.DrawStatusBar(_myPlayer.Fuel, _myPlayer.Oxygen, _myPlayer.Food, _myPlayer.Relic);
-            renderer.DrawDepthDashboard(_myPlayer.Depth);
+            renderer.DrawName(_myPlayer.Info.Name, _myPlayer.CharacterName);
+            renderer.DrawStatusBar(_myPlayer.Info.Fuel, _myPlayer.Info.Oxygen, _myPlayer.Info.Food, _myPlayer.Info.Relic);
+            int[] depthsOfOthers = PlayerManager.Instance.Others.Select(x => x.Value.Info.Depth).ToArray();
+            renderer.DrawDepthDashboard(_myPlayer.Info.Depth, depthsOfOthers);
 
             _isEndGame = false;
         }
@@ -67,7 +68,7 @@ namespace Client
             }
 
             CharacterType type = (CharacterType)(selectedNumber - 1);
-            _myPlayer.Character = type;
+            _myPlayer.Info.Character = type;
 
             C_SelectCharacter selectPacket = new C_SelectCharacter { Character = type };
             NetworkManager.Instance.Send(selectPacket);
@@ -80,10 +81,10 @@ namespace Client
         {
             Console.Clear();
             Console.WriteLine("당신의 이름을 알려주세요.");
-            _myPlayer.name = Console.ReadLine();
-            Console.WriteLine($"안녕하세요 {_myPlayer.name}님");
+            _myPlayer.Info.Name = Console.ReadLine();
+            Console.WriteLine($"안녕하세요 {_myPlayer.Info.Name}님");
 
-            C_SetPlayerName namePacket = new C_SetPlayerName { Name = _myPlayer.name };
+            C_SetPlayerName namePacket = new C_SetPlayerName { Name = _myPlayer.Info.Name };
             NetworkManager.Instance.Send(namePacket);
 
             Thread.Sleep(1000);
@@ -110,7 +111,7 @@ namespace Client
             // 2001 - 3000 : 3 stage
             // 3001 - 4000 : 4 stage
             // 4001 - 5000 : 5 stage
-            int stage = ((_myPlayer.Depth - 1) / 1000) + 1;
+            int stage = ((_myPlayer.Info.Depth - 1) / 1000) + 1;
             List<Event> availableEvents = _events.FindAll(e => e.Stage == stage);
             Random rand = new Random();
             Event curEvent = availableEvents[rand.Next(0, availableEvents.Count)];
@@ -141,27 +142,28 @@ namespace Client
             };
             NetworkManager.Instance.Send(chooseActionPacket);
 
-            _myPlayer.Fuel += curAction.Fuel;
-            _myPlayer.Food += curAction.Food;
-            _myPlayer.Oxygen += curAction.Oxygen;
-            _myPlayer.Relic += curAction.Relic;
-            _myPlayer.Depth -= curAction.Surge;
+            _myPlayer.Info.Fuel += curAction.Fuel;
+            _myPlayer.Info.Food += curAction.Food;
+            _myPlayer.Info.Oxygen += curAction.Oxygen;
+            _myPlayer.Info.Relic += curAction.Relic;
+            _myPlayer.Info.Depth -= curAction.Surge;
 
-            renderer.DrawActionResult(curAction, _myPlayer.Depth);
-            renderer.DrawStatusBar(_myPlayer.Fuel, _myPlayer.Oxygen, _myPlayer.Food, _myPlayer.Relic);
-            renderer.DrawDepthDashboard(_myPlayer.Depth);
+            renderer.DrawActionResult(curAction, _myPlayer.Info.Depth);
+            renderer.DrawStatusBar(_myPlayer.Info.Fuel, _myPlayer.Info.Oxygen, _myPlayer.Info.Food, _myPlayer.Info.Relic);
+            int[] depthsOfOthers = PlayerManager.Instance.Others.Select(x => x.Value.Info.Depth).ToArray();
+            renderer.DrawDepthDashboard(_myPlayer.Info.Depth, depthsOfOthers);
             renderer.ContinueWithEnter();
         }
 
         void CheckGameOver()
         {
-            if (_myPlayer.Depth <= 0)
+            if (_myPlayer.Info.Depth <= 0)
             {
                 _isEndGame = true;
                 Ending();
             }
 
-            if (_myPlayer.Fuel <= 0 || _myPlayer.Food <= 0 || _myPlayer.Oxygen <= 0)
+            if (_myPlayer.Info.Fuel <= 0 || _myPlayer.Info.Food <= 0 || _myPlayer.Info.Oxygen <= 0)
             {
                 _isEndGame = true;
                 GameOver();

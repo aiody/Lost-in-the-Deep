@@ -10,30 +10,34 @@ namespace Server
 {
     internal class Player
     {
-        public int Id { get; set; }
+        public int Id
+        {
+            get { return Info.PlayerId; }
+            set { Info.PlayerId = value; }
+        }
+
         public GameRoom Room { get; set; }
         public ClientSession Session { get; set; }
 
-        public string PlayerName { get; set; }
-
-        public CharacterType type { get; set; }
-        public int depth { get; set; }
-        public int fuel { get; set; }
-        public int food { get; set; }
-        public int oxygen { get; set; }
-        public int relic { get; set; }
+        public PlayerInfo Info { get; set; } = new PlayerInfo();
 
         public void ApplyActionResult(Action targetAction)
         {
-            depth -= targetAction.Surge;
-            fuel += targetAction.Fuel;
-            food += targetAction.Food;
-            oxygen += targetAction.Oxygen;
-            relic += targetAction.Relic;
+            Info.Depth -= targetAction.Surge;
+            Info.Fuel += targetAction.Fuel;
+            Info.Food += targetAction.Food;
+            Info.Oxygen += targetAction.Oxygen;
+            Info.Relic += targetAction.Relic;
 
-            if (depth <= 0 || fuel <= 0 || food <= 0 || oxygen <= 0)
+            if (Info.Depth <= 0 || Info.Fuel <= 0 || Info.Food <= 0 || Info.Oxygen <= 0)
             {
                 Room.LeaveGame(Id);
+            }
+            else
+            {
+                S_UpdatePlayerInfo updatePacket = new S_UpdatePlayerInfo();
+                updatePacket.Player = Info;
+                Room.Broadcast(updatePacket);
             }
         }
     }

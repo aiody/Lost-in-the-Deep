@@ -9,14 +9,19 @@ namespace Client
 {
     internal class Player
     {
-        public int Id { get; set; }
+        public int Id
+        {
+            get { return Info.PlayerId; }
+            set { Info.PlayerId = value; }
+        }
 
-        public CharacterType? Character { get; set; }
+        public PlayerInfo Info { get; set; }
+
         public string CharacterName
         {
             get
             {
-                switch (Character)
+                switch (Info.Character)
                 {
                     case CharacterType.Diver:
                         return "다이버";
@@ -29,13 +34,7 @@ namespace Client
                 }
             }
         }
-        public int Depth { get; set; }
-        public int Fuel { get; set; }
-        public int Food { get; set; }
-        public int Oxygen { get; set; }
-        public int Relic { get; set; }
 
         public string icon = "●";
-        public string name = "";
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Google.Protobuf.Protocol;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,16 +13,20 @@ namespace Client
 
         public Player MyPlayer { get; private set; }
         public Dictionary<int, Player> Players { get; private set; } = new Dictionary<int, Player>();
+        public Dictionary<int, Player> Others
+        {
+            get { return Players.Where(x => x.Value.Id != MyPlayer.Id).ToDictionary(x => x.Key, x => x.Value); }
+        }
 
-        public Player Add(int playerId, bool isYourself = false)
+        public Player Add(PlayerInfo info, bool isYourself = false)
         {
             Player player = new Player();
-            player.Id = playerId;
+            player.Info = info;
+
+            Players.Add(player.Id, player);
 
             if (isYourself)
                 MyPlayer = player;
-            else
-                Players.Add(player.Id, player);
 
             return player;
         }
