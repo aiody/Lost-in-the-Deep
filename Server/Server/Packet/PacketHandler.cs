@@ -75,4 +75,16 @@ internal class PacketHandler
 
         room.EnterGame(clientSession.MyPlayer);
     }
+
+    public static void C_ReqRankingListHandler(PacketSession session, IMessage packet)
+    {
+        ClientSession clientSession = session as ClientSession;
+
+        S_ResRankingList rankPacket = new S_ResRankingList();
+        List<Record> ranks = clientSession.MyPlayer.Room.RankingBoard.GetTop5Rank();
+        foreach (Record rank in ranks)
+            rankPacket.Ranks.Add(rank);
+
+        clientSession.Send(rankPacket);
+    }
 }

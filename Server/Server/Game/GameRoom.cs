@@ -12,6 +12,7 @@ namespace Server
     {
         public int RoomId { get; set; }
         Dictionary<int, Player> _players = new Dictionary<int, Player>();
+        public RankingBoard RankingBoard { get; private set; } = new RankingBoard();
 
         public void EnterGame(Player player)
         {
