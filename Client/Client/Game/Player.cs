@@ -15,6 +15,11 @@ namespace Client
             set { Info.PlayerId = value; }
         }
 
+        public Stat Stat
+        {
+            get { return Info.Stat; }
+            set { Info.Stat = value; }
+        }
         public PlayerInfo Info { get; set; }
 
         public string CharacterName

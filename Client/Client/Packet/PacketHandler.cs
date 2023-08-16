@@ -47,11 +47,7 @@ internal class PacketHandler
         Player myPlayer = PlayerManager.Instance.MyPlayer;
         {
             myPlayer.Info.Character = infoPacket.Character;
-            myPlayer.Info.Depth = infoPacket.Depth;
-            myPlayer.Info.Fuel = infoPacket.Fuel;
-            myPlayer.Info.Oxygen = infoPacket.Oxygen;
-            myPlayer.Info.Food = infoPacket.Food;
-            myPlayer.Info.Relic = infoPacket.Relic;
+            myPlayer.Info.Stat = infoPacket.Stat;
         }
     }
 

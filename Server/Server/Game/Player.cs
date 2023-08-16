@@ -19,20 +19,54 @@ namespace Server
         public GameRoom Room { get; set; }
         public ClientSession Session { get; set; }
 
+        public Stat Stat
+        {
+            get { return Info.Stat; }
+            set { Info.Stat = value; }
+        }
         public PlayerInfo Info { get; set; } = new PlayerInfo();
+
+        public static Stat InitStat(CharacterType character)
+        {
+            Stat stat = new Stat();
+            stat.Depth = 5000;
+            switch (character)
+            {
+                case CharacterType.Diver:
+
+                    stat.Fuel = 300;
+                    stat.Food = 100;
+                    stat.Oxygen = 1500;
+                    stat.Relic = 50;
+                    break;
+                case CharacterType.MarineBiologist:
+                    stat.Fuel = 400;
+                    stat.Food = 200;
+                    stat.Oxygen = 1000;
+                    stat.Relic = 50;
+                    break;
+                case CharacterType.Archaeologist:
+                    stat.Fuel = 300;
+                    stat.Food = 100;
+                    stat.Oxygen = 1000;
+                    stat.Relic = 100;
+                    break;
+            }
+            return stat;
+        }
 
         public void ApplyActionResult(Action targetAction)
         {
-            Info.Depth -= targetAction.Surge;
-            Info.Fuel += targetAction.Fuel;
-            Info.Food += targetAction.Food;
-            Info.Oxygen += targetAction.Oxygen;
-            Info.Relic += targetAction.Relic;
+            Stat.Depth -= targetAction.Surge;
+            Stat.Fuel += targetAction.Fuel;
+            Stat.Food += targetAction.Food;
+            Stat.Oxygen += targetAction.Oxygen;
+            Stat.Relic += targetAction.Relic;
 
-            if (Info.Depth <= 0 || Info.Fuel <= 0 || Info.Food <= 0 || Info.Oxygen <= 0)
+            if (Stat.Depth <= 0 || Stat.Fuel <= 0 || Stat.Food <= 0 || Stat.Oxygen <= 0)
             {
-                if (Info.Depth <= 0) // 게임 성공 시
-                    Room.RankingBoard.WriteRecord(Info.Name, Info.Relic);
+                if (Stat.Depth <= 0) // 게임 성공 시
+                    Room.RankingBoard.WriteRecord(Info.Name, Stat.Relic);
 
                 Room.LeaveGame(Id);
             }

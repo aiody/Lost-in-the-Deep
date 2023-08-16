@@ -17,23 +17,13 @@ internal class PacketHandler
         ClientSession clientSession = session as ClientSession;
 
         Player myPlayer = clientSession.MyPlayer;
-        {
-            myPlayer.Info.Character = selectCharacterPacket.Character;
-            myPlayer.Info.Depth = 5000;
-            myPlayer.Info.Fuel = 300;
-            myPlayer.Info.Food = 100;
-            myPlayer.Info.Oxygen = 1000;
-            myPlayer.Info.Relic = 50;
-        }
+        myPlayer.Info.Character = selectCharacterPacket.Character;
+        myPlayer.Info.Stat = Player.InitStat(selectCharacterPacket.Character);
 
         S_InitialCharacterInfo initPacket = new S_InitialCharacterInfo()
         {
             Character = myPlayer.Info.Character,
-            Depth = myPlayer.Info.Depth,
-            Fuel = myPlayer.Info.Fuel,
-            Food = myPlayer.Info.Food,
-            Oxygen = myPlayer.Info.Oxygen,
-            Relic = myPlayer.Info.Relic
+            Stat = myPlayer.Info.Stat
         };
 
         clientSession.Send(initPacket);
