@@ -51,10 +51,55 @@ namespace Client
             Console.WriteLine("                                                                                                     sB                 ");
             Console.WriteLine("                                                                                                      :                 ");
             Console.WriteLine("                                                                                                                        ");
-            Console.WriteLine("                                            계속 하려면 아무 키나 누르세요.                                             ");
-            Console.ReadKey();
+            Console.WriteLine("                                                    1. 게임 시작                                                        ");
+            Console.WriteLine("                                                    2. 랭킹 보기                                                        ");
+            SetCursorPositionInputArea();
         }
 
+        public void DrawRanking()
+        {
+            Console.Clear();
+            Console.WriteLine("                                                                                                                        ");
+            Console.WriteLine("                                                                                                                        ");
+            Console.WriteLine("                                iss22r                     rB      ,BX                                                  ");
+            Console.WriteLine("                                BB,,,BB:                   rB                                                           ");
+            Console.WriteLine("                                9B    Bs ,BG9BB  :BssXBBi  iB  ,Bs  B: ,B9sSGBs   2G22BBh                               ");
+            Console.WriteLine("                                2BrriBh       Bs  BB   GB  iB :B:   Br  MB   rB, sB    B,                               ");
+            Console.WriteLine("                                SB,,BB   ,2ssrBr  BM   rB  :BsB     Bi  GB   ,B,  Bi ,XB                                ");
+            Console.WriteLine("                                GB   Bs  BB   Bs  BB   sB  rB :B:   Bi  MB   :B,  Bs:i                                  ");
+            Console.WriteLine("                                9B   ,Bs rBG2sBB  BB   sB  rB  :Bs  BM  MB   iB,  B9,sssr                               ");
+            Console.WriteLine("                                                                                 rBr  rB9                               ");
+            Console.WriteLine("                                                                                   issr                                 ");
+            Console.WriteLine("                                                                                                                        ");
+            Console.WriteLine("                    ----------------------------------------------------------------------------------                  ");
+            Console.WriteLine("                    |      순위      |          이름          |              유물 개수               |                  ");
+            Console.WriteLine("                    |--------------------------------------------------------------------------------|                  ");
+            Console.WriteLine("                    |       1        |                        |                                      |                  ");
+            Console.WriteLine("                    |--------------------------------------------------------------------------------|                  ");
+            Console.WriteLine("                    |       2        |                        |                                      |                  ");
+            Console.WriteLine("                    |--------------------------------------------------------------------------------|                  ");
+            Console.WriteLine("                    |       3        |                        |                                      |                  ");
+            Console.WriteLine("                    |--------------------------------------------------------------------------------|                  ");
+            Console.WriteLine("                    |       4        |                        |                                      |                  ");
+            Console.WriteLine("                    |--------------------------------------------------------------------------------|                  ");
+            Console.WriteLine("                    |       5        |                        |                                      |                  ");
+            Console.WriteLine("                    |--------------------------------------------------------------------------------|                  ");
+            Console.WriteLine("                    |       6        |                        |                                      |                  ");
+            Console.WriteLine("                    |--------------------------------------------------------------------------------|                  ");
+            Console.WriteLine("                    |       7        |                        |                                      |                  ");
+            Console.WriteLine("                    |--------------------------------------------------------------------------------|                  ");
+            Console.WriteLine("                    |       8        |                        |                                      |                  ");
+            Console.WriteLine("                    |--------------------------------------------------------------------------------|                  ");
+            Console.WriteLine("                    |       9        |                        |                                      |                  ");
+            Console.WriteLine("                    |--------------------------------------------------------------------------------|                  ");
+            Console.WriteLine("                    |       10       |                        |                                      |                  ");
+            Console.WriteLine("                    ----------------------------------------------------------------------------------                  ");
+            Console.WriteLine("                                                                                                                        ");
+            Console.WriteLine("                                                    1. 뒤로 가기                                                        ");
+            Console.WriteLine("                                                                                                                        ");
+            SetCursorPositionInputArea();
+        }
+        
         public void DrawGameStory()
         {
             Console.Clear();
@@ -64,7 +109,24 @@ namespace Client
             Console.WriteLine("당신은 지상으로 올라갔을 때 유물을 가져간다면 얻게 될 부와 명예를 떠올리며 유물을 최대한 챙기기로 한다.");
             Console.WriteLine();
             Console.WriteLine("계속 하려면 아무 키나 누르고 Enter를 누르시오.");
-            Console.ReadKey();
+        }
+
+        public void DrawSelectCharacter()
+        {
+            Console.Clear();
+            Console.WriteLine("난이도가 어려운 프로젝트인 만큼 팀에는 여러 인재들이 존재했다.");
+            Console.WriteLine("플레이 하고 싶은 캐릭터를 고르세요.");
+            Console.WriteLine();
+            Console.WriteLine("1. 다이버 : 물리적으로 튼튼, 기동력 좋음. 산소를 덜 소모함.");
+            Console.WriteLine("2. 해양생물학자 : 지식 빵빵, 알고 있는 것이 많아서 상황 대처력이 좋음.");
+            Console.WriteLine("3. 고고학자 : 유물에 대한 전문 지식으로 유물을 더 많이 챙길 수 있음.");
+            SetCursorPositionInputArea();
+        }
+
+        public void DrawSelectedCharacter(string name)
+        {
+            SetCursorPositionInputArea();
+            Console.WriteLine($"당신은 {name}를 고르셨습니다.");
         }
 
         public void DrawUIFrame()

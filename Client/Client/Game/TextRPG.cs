@@ -7,8 +7,20 @@ namespace Client
     {
         List<Event> _events;
         Player _myPlayer = null;
-        UIRenderer renderer = new UIRenderer();
-        bool _isEndGame = false;
+        UIRenderer _renderer = new UIRenderer();
+        Scene _curScene = Scene.Main;
+
+        enum Scene
+        {
+            Main,
+            Ranking,
+            Story,
+            SelectCharacter,
+            ChooseName,
+            Game,
+            Ending,
+            GameOver
+        }
 
         public void Start()
         {
@@ -18,53 +30,121 @@ namespace Client
 
         void InitGame()
         {
-            renderer.DrawMain();
-            renderer.DrawGameStory();
-
+            Thread.Sleep(250);
             _myPlayer = PlayerManager.Instance.MyPlayer;
             LoadEvents();
+        }
 
-            SelectCharacter();
-            InputName();
-
-            renderer.DrawUIFrame();
-            renderer.DrawName(_myPlayer.Info.Name, _myPlayer.CharacterName);
-            renderer.DrawStatusBar(_myPlayer.Info.Fuel, _myPlayer.Info.Oxygen, _myPlayer.Info.Food, _myPlayer.Info.Relic);
-            int[] depthsOfOthers = PlayerManager.Instance.Others.Select(x => x.Value.Info.Depth).ToArray();
-            renderer.DrawDepthDashboard(_myPlayer.Info.Depth, depthsOfOthers);
-
-            _isEndGame = false;
+        void LoadEvents()
+        {
+            _events = DataManager.Instance.Events;
         }
 
         public void Update()
         {
-            if (_isEndGame == false)
+            switch (_curScene)
             {
-                OccurEvent();
-                CheckGameOver();
+                case Scene.Main:
+                    _renderer.DrawMain();
+                    InputMain();
+                    break;
+                case Scene.Ranking:
+                    _renderer.DrawRanking(); // 네트워크 통신으로 랭킹 정보 가져와서 그리기
+                    InputRanking();
+                    break;
+                case Scene.Story:
+                    _renderer.DrawGameStory();
+                    InputStory();
+                    break;
+                case Scene.SelectCharacter:
+                    _renderer.DrawSelectCharacter();
+                    InputSelectCharacter();
+                    break;
+                case Scene.ChooseName:
+                    InputName();
+                    break;
+                case Scene.Game:
+                    _renderer.DrawUIFrame();
+                    _renderer.DrawName(_myPlayer.Info.Name, _myPlayer.CharacterName);
+                    _renderer.DrawStatusBar(_myPlayer.Info.Fuel, _myPlayer.Info.Oxygen, _myPlayer.Info.Food, _myPlayer.Info.Relic);
+                    int[] depthsOfOthers = PlayerManager.Instance.Others.Select(x => x.Value.Info.Depth).ToArray();
+                    _renderer.DrawDepthDashboard(_myPlayer.Info.Depth, depthsOfOthers);
+
+                    OccurEvent();
+                    CheckGameOver();
+
+                    break;
+                case Scene.Ending:
+                    Ending();
+                    break;
+                case Scene.GameOver:
+                    GameOver();
+                    break;
             }
         }
 
-        void SelectCharacter()
+        void InputMain()
         {
             int selectedNumber = 0;
             while (true)
             {
-                Console.Clear();
-                Console.WriteLine("난이도가 어려운 프로젝트인 만큼 팀에는 여러 인재들이 존재했다.");
-                Console.WriteLine("플레이 하고 싶은 캐릭터를 고르세요.");
-                Console.WriteLine();
-                Console.WriteLine("1. 다이버 : 물리적으로 튼튼, 기동력 좋음. 산소를 덜 소모함.");
-                Console.WriteLine("2. 해양생물학자 : 지식 빵빵, 알고 있는 것이 많아서 상황 대처력이 좋음.");
-                Console.WriteLine("3. 고고학자 : 유물에 대한 전문 지식으로 유물을 더 많이 챙길 수 있음.");
-                
+                int.TryParse(Console.ReadLine(), out selectedNumber);
+
+                if (selectedNumber == 1 || selectedNumber == 2)
+                    break;
+
+                _renderer.PleaseTypeAgain();
+            }
+
+            switch (selectedNumber)
+            {
+                case 1:
+                    _curScene = Scene.Story;
+                    break;
+                case 2:
+                    _curScene = Scene.Ranking;
+                    break;
+            }
+        }
+
+        void InputRanking()
+        {
+            int selectedNumber = 0;
+            while (true)
+            {
+                int.TryParse(Console.ReadLine(), out selectedNumber);
+
+                if (selectedNumber == 1)
+                    break;
+
+                _renderer.PleaseTypeAgain();
+            }
+
+            switch (selectedNumber)
+            {
+                case 1:
+                    _curScene = Scene.Main;
+                    break;
+            }
+        }
+
+        void InputStory()
+        {
+            Console.ReadKey();
+            _curScene = Scene.SelectCharacter;
+        }
+
+        void InputSelectCharacter()
+        {
+            int selectedNumber = 0;
+            while (true)
+            {
                 int.TryParse(Console.ReadLine(), out selectedNumber);
 
                 if (selectedNumber == 1 || selectedNumber == 2 || selectedNumber == 3)
                     break;
 
-                Console.WriteLine("다시 골라주세요.");
-                Thread.Sleep(1000);
+                _renderer.PleaseTypeAgain();
             }
 
             CharacterType type = (CharacterType)(selectedNumber - 1);
@@ -73,8 +153,10 @@ namespace Client
             C_SelectCharacter selectPacket = new C_SelectCharacter { Character = type };
             NetworkManager.Instance.Send(selectPacket);
 
-            Console.WriteLine($"당신은 {_myPlayer.CharacterName}를 고르셨습니다.");
+            _renderer.DrawSelectedCharacter(_myPlayer.CharacterName);
             Thread.Sleep(1000);
+
+            _curScene = Scene.ChooseName;
         }
 
         void InputName()
@@ -97,11 +179,8 @@ namespace Client
             Console.Clear();
             Console.WriteLine("게임을 시작하겠습니다...");
             Thread.Sleep(1000);
-        }
 
-        void LoadEvents()
-        {
-            _events = DataManager.Instance.Events;
+            _curScene = Scene.Game;
         }
 
         void OccurEvent()
@@ -116,8 +195,8 @@ namespace Client
             Random rand = new Random();
             Event curEvent = availableEvents[rand.Next(0, availableEvents.Count)];
 
-            renderer.DrawEventArea(curEvent.Name, curEvent.Description);
-            renderer.DrawActionArea(curEvent.Actions.ToList());
+            _renderer.DrawEventArea(curEvent.Name, curEvent.Description);
+            _renderer.DrawActionArea(curEvent.Actions.ToList());
 
             // choose action
             int input = 0;
@@ -128,7 +207,7 @@ namespace Client
                 if (input > 0 && input <= curEvent.Actions.Count)
                     break;
 
-                renderer.PleaseTypeAgain();
+                _renderer.PleaseTypeAgain();
             }
 
             // ouput action result
@@ -148,26 +227,20 @@ namespace Client
             _myPlayer.Info.Relic += curAction.Relic;
             _myPlayer.Info.Depth -= curAction.Surge;
 
-            renderer.DrawActionResult(curAction, _myPlayer.Info.Depth);
-            renderer.DrawStatusBar(_myPlayer.Info.Fuel, _myPlayer.Info.Oxygen, _myPlayer.Info.Food, _myPlayer.Info.Relic);
+            _renderer.DrawActionResult(curAction, _myPlayer.Info.Depth);
+            _renderer.DrawStatusBar(_myPlayer.Info.Fuel, _myPlayer.Info.Oxygen, _myPlayer.Info.Food, _myPlayer.Info.Relic);
             int[] depthsOfOthers = PlayerManager.Instance.Others.Select(x => x.Value.Info.Depth).ToArray();
-            renderer.DrawDepthDashboard(_myPlayer.Info.Depth, depthsOfOthers);
-            renderer.ContinueWithEnter();
+            _renderer.DrawDepthDashboard(_myPlayer.Info.Depth, depthsOfOthers);
+            _renderer.ContinueWithEnter();
         }
 
         void CheckGameOver()
         {
             if (_myPlayer.Info.Depth <= 0)
-            {
-                _isEndGame = true;
-                Ending();
-            }
+                _curScene = Scene.Ending;
 
             if (_myPlayer.Info.Fuel <= 0 || _myPlayer.Info.Food <= 0 || _myPlayer.Info.Oxygen <= 0)
-            {
-                _isEndGame = true;
-                GameOver();
-            }
+                _curScene = Scene.GameOver;
         }
 
         void Ending()
@@ -192,24 +265,26 @@ namespace Client
             Console.WriteLine("1. 다시 시작");
             Console.WriteLine("2. 게임 종료");
 
-            int input = 0;
+            int selectedNumber = 0;
             while (true)
             {
-                int.TryParse(Console.ReadLine(), out input);
+                int.TryParse(Console.ReadLine(), out selectedNumber);
 
-                if (input == 1 || input == 2)
+                if (selectedNumber == 1 || selectedNumber == 2)
                     break;
 
-                Console.WriteLine("다시 골라주세요.");
-                Thread.Sleep(1000);
+                _renderer.PleaseTypeAgain();
             }
 
-            if (input == 1)
+            if (selectedNumber == 1)
             {
+                PlayerManager.Instance.Remove(_myPlayer.Id);
+
                 C_Retry retryPacket = new C_Retry();
                 NetworkManager.Instance.Send(retryPacket);
 
                 InitGame();
+                _curScene = Scene.Main;
             }
             else
             {
