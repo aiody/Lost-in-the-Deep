@@ -31,6 +31,8 @@ internal class PacketManager
         _handler.Add((ushort)MsgId.SInitialCharacterInfo, PacketHandler.S_InitialCharacterInfoHandler);
         _onRecv.Add((ushort)MsgId.SUpdatePlayerInfo, MakePacket<S_UpdatePlayerInfo>);
         _handler.Add((ushort)MsgId.SUpdatePlayerInfo, PacketHandler.S_UpdatePlayerInfoHandler);
+        _onRecv.Add((ushort)MsgId.SResRankingList, MakePacket<S_ResRankingList>);
+        _handler.Add((ushort)MsgId.SResRankingList, PacketHandler.S_ResRankingListHandler);
     }
 
     public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

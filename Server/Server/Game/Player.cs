@@ -31,10 +31,10 @@ namespace Server
 
             if (Info.Depth <= 0 || Info.Fuel <= 0 || Info.Food <= 0 || Info.Oxygen <= 0)
             {
-                Room.LeaveGame(Id);
-
                 if (Info.Depth <= 0) // 게임 성공 시
                     Room.RankingBoard.WriteRecord(Info.Name, Info.Relic);
+
+                Room.LeaveGame(Id);
             }
             else
             {

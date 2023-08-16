@@ -1,4 +1,5 @@
-﻿using Google.Protobuf.WellKnownTypes;
+﻿using Google.Protobuf.Protocol;
+using Google.Protobuf.WellKnownTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,7 +57,11 @@ namespace Client
             SetCursorPositionInputArea();
         }
 
-        public void DrawRanking()
+        static int START_RANKING_RANK_X = 28;
+        static int START_RANKING_NAME_X = 38;
+        static int START_RANKING_RELIC_X = 63;
+        static int START_RANKING_Y = 15;
+        public void DrawRanking(List<Record> ranking)
         {
             Console.Clear();
             Console.WriteLine("                                                                                                                        ");
@@ -74,29 +79,40 @@ namespace Client
             Console.WriteLine("                    ----------------------------------------------------------------------------------                  ");
             Console.WriteLine("                    |      순위      |          이름          |              유물 개수               |                  ");
             Console.WriteLine("                    |--------------------------------------------------------------------------------|                  ");
-            Console.WriteLine("                    |       1        |                        |                                      |                  ");
+            Console.WriteLine("                    |                |                        |                                      |                  ");
             Console.WriteLine("                    |--------------------------------------------------------------------------------|                  ");
-            Console.WriteLine("                    |       2        |                        |                                      |                  ");
+            Console.WriteLine("                    |                |                        |                                      |                  ");
             Console.WriteLine("                    |--------------------------------------------------------------------------------|                  ");
-            Console.WriteLine("                    |       3        |                        |                                      |                  ");
+            Console.WriteLine("                    |                |                        |                                      |                  ");
             Console.WriteLine("                    |--------------------------------------------------------------------------------|                  ");
-            Console.WriteLine("                    |       4        |                        |                                      |                  ");
+            Console.WriteLine("                    |                |                        |                                      |                  ");
             Console.WriteLine("                    |--------------------------------------------------------------------------------|                  ");
-            Console.WriteLine("                    |       5        |                        |                                      |                  ");
+            Console.WriteLine("                    |                |                        |                                      |                  ");
             Console.WriteLine("                    |--------------------------------------------------------------------------------|                  ");
-            Console.WriteLine("                    |       6        |                        |                                      |                  ");
+            Console.WriteLine("                    |                |                        |                                      |                  ");
             Console.WriteLine("                    |--------------------------------------------------------------------------------|                  ");
-            Console.WriteLine("                    |       7        |                        |                                      |                  ");
+            Console.WriteLine("                    |                |                        |                                      |                  ");
             Console.WriteLine("                    |--------------------------------------------------------------------------------|                  ");
-            Console.WriteLine("                    |       8        |                        |                                      |                  ");
+            Console.WriteLine("                    |                |                        |                                      |                  ");
             Console.WriteLine("                    |--------------------------------------------------------------------------------|                  ");
-            Console.WriteLine("                    |       9        |                        |                                      |                  ");
+            Console.WriteLine("                    |                |                        |                                      |                  ");
             Console.WriteLine("                    |--------------------------------------------------------------------------------|                  ");
-            Console.WriteLine("                    |       10       |                        |                                      |                  ");
+            Console.WriteLine("                    |                |                        |                                      |                  ");
             Console.WriteLine("                    ----------------------------------------------------------------------------------                  ");
             Console.WriteLine("                                                                                                                        ");
             Console.WriteLine("                                                    1. 뒤로 가기                                                        ");
             Console.WriteLine("                                                                                                                        ");
+
+            for (int i = 0; i < ranking.Count; i++)
+            {
+                Console.SetCursorPosition(START_RANKING_RANK_X, START_RANKING_Y + (i * 2));
+                Console.Write(i + 1);
+                Console.SetCursorPosition(START_RANKING_NAME_X, START_RANKING_Y + (i * 2));
+                Console.Write(ranking[i].Name);
+                Console.SetCursorPosition(START_RANKING_RELIC_X, START_RANKING_Y + (i * 2));
+                Console.Write(ranking[i].Relic);
+            }
+
             SetCursorPositionInputArea();
         }
         

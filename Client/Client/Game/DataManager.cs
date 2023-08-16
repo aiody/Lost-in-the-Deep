@@ -12,5 +12,6 @@ namespace Client
         public static DataManager Instance { get; private set; } = new DataManager();
 
         public List<Event> Events { get; set; } = new List<Event>();
+        public List<Record> Ranking { get; set; } = new List<Record>();
     }
 }

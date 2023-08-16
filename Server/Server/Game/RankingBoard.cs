@@ -16,10 +16,10 @@ namespace Server
         {
             records.Sort((a, b) =>
             {
-                return a.Relic.CompareTo(b.Relic);
+                return b.Relic.CompareTo(a.Relic);
             });
 
-            return records.GetRange(0, 5);
+            return records.GetRange(0, Math.Min(records.Count, 5));
         }
 
         public void WriteRecord(string name, int relic)

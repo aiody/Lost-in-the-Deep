@@ -42,7 +42,7 @@
 			<description>
 				어두워졌어 비상 조명이 있을까?!
 			</description>
-			<surge>250</surge>
+			<surge>500</surge>
 			<fuel>-20</fuel>
 			<food>-10</food>
 			<oxygen>-70</oxygen>
@@ -52,7 +52,7 @@
 			<description>
 				어두워졌어 시각을 제외한 다른 감각에 집중해보잣!
 			</description>
-			<surge>250</surge>
+			<surge>500</surge>
 			<fuel>-20</fuel>
 			<food>-10</food>
 			<oxygen>-70</oxygen>
@@ -102,7 +102,7 @@
 			<description>
 				해류에 휩쓸리면 안돼! 어서 빠져나가자
 			</description>
-			<surge>300</surge>
+			<surge>500</surge>
 			<fuel>-10</fuel>
 			<food>-5</food>
 			<oxygen>-50</oxygen>
@@ -112,7 +112,7 @@
 			<description>
 				해류에 휩쓸려버렸어.. 이게 도움이 될까?
 			</description>
-			<surge>300</surge>
+			<surge>500</surge>
 			<fuel>-10</fuel>
 			<food>-5</food>
 			<oxygen>-50</oxygen>
@@ -130,7 +130,7 @@
 			<description>
 				잠수정을 격하게 운전하여 대왕오징어를 떨쳐내보자.
 			</description>
-			<surge>300</surge>
+			<surge>500</surge>
 			<fuel>-10</fuel>
 			<food>-5</food>
 			<oxygen>-50</oxygen>
@@ -140,7 +140,7 @@
 			<description>
 				고주파를 쏴서 대왕오징어를 겁먹게 만들자.
 			</description>
-			<surge>300</surge>
+			<surge>500</surge>
 			<fuel>-10</fuel>
 			<food>-5</food>
 			<oxygen>-50</oxygen>
@@ -158,7 +158,7 @@
 			<description>
 				잠수정을 격하게 운전하여 대왕오징어를 떨쳐내보자.
 			</description>
-			<surge>300</surge>
+			<surge>500</surge>
 			<fuel>-10</fuel>
 			<food>-5</food>
 			<oxygen>-50</oxygen>
@@ -168,7 +168,7 @@
 			<description>
 				플라즈마 미사일을 날려서 쫓아낸다.
 			</description>
-			<surge>300</surge>
+			<surge>500</surge>
 			<fuel>-10</fuel>
 			<food>-5</food>
 			<oxygen>-50</oxygen>
@@ -186,7 +186,7 @@
 			<description>
 				가까이 다가가서 채집해볼까?
 			</description>
-			<surge>300</surge>
+			<surge>500</surge>
 			<fuel>-10</fuel>
 			<food>-5</food>
 			<oxygen>-50</oxygen>
@@ -197,7 +197,7 @@
 				가까이 다가가면 무슨 일이 생길지 몰라.
 				사진으로 남기고 도망가자.
 			</description>
-			<surge>300</surge>
+			<surge>500</surge>
 			<fuel>-10</fuel>
 			<food>-5</food>
 			<oxygen>-50</oxygen>
@@ -216,7 +216,7 @@
 			<description>
 				빛을 바라보고 있으니 몽롱하고 기분이 좋다. 가까이 다가간다.
 			</description>
-			<surge>300</surge>
+			<surge>500</surge>
 			<fuel>-10</fuel>
 			<food>-5</food>
 			<oxygen>-50</oxygen>
@@ -226,7 +226,7 @@
 			<description>
 				이건 함정이야! 더 강한 빛을 쏘아서 물고기 형체를 분산시켜야겠어.
 			</description>
-			<surge>300</surge>
+			<surge>500</surge>
 			<fuel>-10</fuel>
 			<food>-5</food>
 			<oxygen>-50</oxygen>
@@ -246,7 +246,7 @@
 				무슨 쓰레기가 이렇게나..!
 				얼른 방향을 꺾어 도망가자.
 			</description>
-			<surge>300</surge>
+			<surge>500</surge>
 			<fuel>-10</fuel>
 			<food>-5</food>
 			<oxygen>-50</oxygen>
@@ -259,7 +259,7 @@
 				이것은 유물..!!
 				유믈 덩어리를 발견했다.
 			</description>
-			<surge>300</surge>
+			<surge>500</surge>
 			<fuel>-10</fuel>
 			<food>-5</food>
 			<oxygen>-50</oxygen>
@@ -278,7 +278,7 @@
 			<description>
 				수상하니 어서 귀를 막고 도망간다.
 			</description>
-			<surge>300</surge>
+			<surge>500</surge>
 			<fuel>-10</fuel>
 			<food>-5</food>
 			<oxygen>-50</oxygen>
@@ -291,7 +291,7 @@
 				가까이 다가가보니 인어 형체의 유물이었다.
 				유물에서는 녹음된 노래가 계속 흘러나오고 있었다.
 			</description>
-			<surge>300</surge>
+			<surge>500</surge>
 			<fuel>-10</fuel>
 			<food>-5</food>
 			<oxygen>-50</oxygen>
@@ -309,7 +309,7 @@
 			<description>
 				수상하니 어서 도망간다.
 			</description>
-			<surge>300</surge>
+			<surge>500</surge>
 			<fuel>-10</fuel>
 			<food>-5</food>
 			<oxygen>-50</oxygen>
@@ -321,7 +321,7 @@
 				닿는 생명체마다 얼고 있잖아..!
 				잠수정의 일부분이 닿아서 냉손상을 얻었다.
 			</description>
-			<surge>300</surge>
+			<surge>500</surge>
 			<fuel>-10</fuel>
 			<food>-5</food>
 			<oxygen>-50</oxygen>
@@ -342,7 +342,7 @@
 				상어 옆에 조그마한 덩어리가 보였다.
 				알고보니 아기 상어였다. 엄마 상어라서 위협을 받았구나..!
 			</description>
-			<surge>300</surge>
+			<surge>500</surge>
 			<fuel>-10</fuel>
 			<food>-5</food>
 			<oxygen>-50</oxygen>
@@ -353,7 +353,7 @@
 				화가 났다니, 손 쓸 수 없겠군!
 				어서 속도를 올려 도망가자!
 			</description>
-			<surge>300</surge>
+			<surge>500</surge>
 			<fuel>-10</fuel>
 			<food>-5</food>
 			<oxygen>-50</oxygen>
@@ -370,7 +370,7 @@
 			<description>
 				속도를 올려서 그 자리를 빠져나간다.
 			</description>
-			<surge>300</surge>
+			<surge>500</surge>
 			<fuel>-10</fuel>
 			<food>-5</food>
 			<oxygen>-50</oxygen>
@@ -382,7 +382,7 @@
 				
 				해초가 외부 프로펠러에 엮여서 나아가지 않았다.
 			</description>
-			<surge>300</surge>
+			<surge>500</surge>
 			<fuel>-10</fuel>
 			<food>-5</food>
 			<oxygen>-50</oxygen>

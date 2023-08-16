@@ -65,4 +65,14 @@ internal class PacketHandler
             player.Info = updatePacket.Player;
         }
     }
+
+    public static void S_ResRankingListHandler(PacketSession session, IMessage packet)
+    {
+        S_ResRankingList rankPacket = packet as S_ResRankingList;
+
+        DataManager.Instance.Ranking.Clear();
+
+        foreach (Record rank in rankPacket.Ranks)
+            DataManager.Instance.Ranking.Add(rank);
+    }
 }

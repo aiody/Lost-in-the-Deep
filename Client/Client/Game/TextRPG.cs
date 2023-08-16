@@ -49,7 +49,10 @@ namespace Client
                     InputMain();
                     break;
                 case Scene.Ranking:
-                    _renderer.DrawRanking(); // 네트워크 통신으로 랭킹 정보 가져와서 그리기
+                    C_ReqRankingList reqRank = new C_ReqRankingList();
+                    NetworkManager.Instance.Send(reqRank);
+                    Thread.Sleep(250);
+                    _renderer.DrawRanking(DataManager.Instance.Ranking);
                     InputRanking();
                     break;
                 case Scene.Story:
