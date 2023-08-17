@@ -38,25 +38,25 @@ namespace Google.Protobuf.Protocol {
             "ChJTX1VwZGF0ZVBsYXllckluZm8SJAoGcGxheWVyGAEgASgLMhQuUHJvdG9j",
             "b2wuUGxheWVySW5mbyIJCgdDX1JldHJ5IhIKEENfUmVxUmFua2luZ0xpc3Qi",
             "MwoQU19SZXNSYW5raW5nTGlzdBIfCgVyYW5rcxgBIAMoCzIQLlByb3RvY29s",
-            "LlJlY29yZCJ2CgpQbGF5ZXJJbmZvEhAKCHBsYXllcklkGAEgASgFEgwKBG5h",
-            "bWUYAiABKAkSKgoJY2hhcmFjdGVyGAMgASgOMhcuUHJvdG9jb2wuQ2hhcmFj",
-            "dGVyVHlwZRIcCgRzdGF0GAQgASgLMg4uUHJvdG9jb2wuU3RhdCJQCgRTdGF0",
-            "Eg0KBWRlcHRoGAEgASgFEgwKBGZ1ZWwYAiABKAUSDAoEZm9vZBgDIAEoBRIO",
-            "CgZveHlnZW4YBCABKAUSDQoFcmVsaWMYBSABKAUiaAoFRXZlbnQSCgoCaWQY",
-            "ASABKAUSDAoEbmFtZRgCIAEoCRINCgVzdGFnZRgDIAEoBRITCgtkZXNjcmlw",
-            "dGlvbhgEIAEoCRIhCgdhY3Rpb25zGAUgAygLMhAuUHJvdG9jb2wuQWN0aW9u",
-            "IoEBCgZBY3Rpb24SCgoCaWQYASABKAUSDAoEbmFtZRgCIAEoCRITCgtkZXNj",
-            "cmlwdGlvbhgDIAEoCRINCgVzdXJnZRgEIAEoBRIMCgRmdWVsGAUgASgFEgwK",
-            "BGZvb2QYBiABKAUSDgoGb3h5Z2VuGAcgASgFEg0KBXJlbGljGAggASgFIiUK",
-            "BlJlY29yZBIMCgRuYW1lGAEgASgJEg0KBXJlbGljGAIgASgFKoACCgVNc2dJ",
-            "ZBIQCgxTX0VOVEVSX0dBTUUQABIQCgxTX0xFQVZFX0dBTUUQARILCgdTX1NQ",
-            "QVdOEAISDQoJU19ERVNQQVdOEAMSFgoSQ19TRUxFQ1RfQ0hBUkFDVEVSEAQS",
-            "HAoYU19JTklUSUFMX0NIQVJBQ1RFUl9JTkZPEAUSFQoRQ19TRVRfUExBWUVS",
-            "X05BTUUQBhITCg9DX0NIT09TRV9BQ1RJT04QBxIYChRTX1VQREFURV9QTEFZ",
-            "RVJfSU5GTxAIEgsKB0NfUkVUUlkQCRIWChJDX1JFUV9SQU5LSU5HX0xJU1QQ",
-            "ChIWChJTX1JFU19SQU5LSU5HX0xJU1QQCypDCg1DaGFyYWN0ZXJUeXBlEgkK",
-            "BURJVkVSEAASFAoQTUFSSU5FX0JJT0xPR0lTVBABEhEKDUFSQ0hBRU9MT0dJ",
-            "U1QQAkIbqgIYR29vZ2xlLlByb3RvYnVmLlByb3RvY29sYgZwcm90bzM="));
+            "LlJlY29yZCKFAQoKUGxheWVySW5mbxIQCghwbGF5ZXJJZBgBIAEoBRINCgVk",
+            "ZXB0aBgCIAEoBRIMCgRuYW1lGAMgASgJEioKCWNoYXJhY3RlchgEIAEoDjIX",
+            "LlByb3RvY29sLkNoYXJhY3RlclR5cGUSHAoEc3RhdBgFIAEoCzIOLlByb3Rv",
+            "Y29sLlN0YXQiQQoEU3RhdBIMCgRmdWVsGAEgASgFEgwKBGZvb2QYAiABKAUS",
+            "DgoGb3h5Z2VuGAMgASgFEg0KBXJlbGljGAQgASgFImgKBUV2ZW50EgoKAmlk",
+            "GAEgASgFEgwKBG5hbWUYAiABKAkSDQoFc3RhZ2UYAyABKAUSEwoLZGVzY3Jp",
+            "cHRpb24YBCABKAkSIQoHYWN0aW9ucxgFIAMoCzIQLlByb3RvY29sLkFjdGlv",
+            "biKBAQoGQWN0aW9uEgoKAmlkGAEgASgFEgwKBG5hbWUYAiABKAkSEwoLZGVz",
+            "Y3JpcHRpb24YAyABKAkSDQoFc3VyZ2UYBCABKAUSDAoEZnVlbBgFIAEoBRIM",
+            "CgRmb29kGAYgASgFEg4KBm94eWdlbhgHIAEoBRINCgVyZWxpYxgIIAEoBSIl",
+            "CgZSZWNvcmQSDAoEbmFtZRgBIAEoCRINCgVyZWxpYxgCIAEoBSqAAgoFTXNn",
+            "SWQSEAoMU19FTlRFUl9HQU1FEAASEAoMU19MRUFWRV9HQU1FEAESCwoHU19T",
+            "UEFXThACEg0KCVNfREVTUEFXThADEhYKEkNfU0VMRUNUX0NIQVJBQ1RFUhAE",
+            "EhwKGFNfSU5JVElBTF9DSEFSQUNURVJfSU5GTxAFEhUKEUNfU0VUX1BMQVlF",
+            "Ul9OQU1FEAYSEwoPQ19DSE9PU0VfQUNUSU9OEAcSGAoUU19VUERBVEVfUExB",
+            "WUVSX0lORk8QCBILCgdDX1JFVFJZEAkSFgoSQ19SRVFfUkFOS0lOR19MSVNU",
+            "EAoSFgoSU19SRVNfUkFOS0lOR19MSVNUEAsqQwoNQ2hhcmFjdGVyVHlwZRIJ",
+            "CgVESVZFUhAAEhQKEE1BUklORV9CSU9MT0dJU1QQARIRCg1BUkNIQUVPTE9H",
+            "SVNUEAJCG6oCGEdvb2dsZS5Qcm90b2J1Zi5Qcm90b2NvbGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.MsgId), typeof(global::Google.Protobuf.Protocol.CharacterType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -72,8 +72,8 @@ namespace Google.Protobuf.Protocol {
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.C_Retry), global::Google.Protobuf.Protocol.C_Retry.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.C_ReqRankingList), global::Google.Protobuf.Protocol.C_ReqRankingList.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.S_ResRankingList), global::Google.Protobuf.Protocol.S_ResRankingList.Parser, new[]{ "Ranks" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.PlayerInfo), global::Google.Protobuf.Protocol.PlayerInfo.Parser, new[]{ "PlayerId", "Name", "Character", "Stat" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Stat), global::Google.Protobuf.Protocol.Stat.Parser, new[]{ "Depth", "Fuel", "Food", "Oxygen", "Relic" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.PlayerInfo), global::Google.Protobuf.Protocol.PlayerInfo.Parser, new[]{ "PlayerId", "Depth", "Name", "Character", "Stat" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Stat), global::Google.Protobuf.Protocol.Stat.Parser, new[]{ "Fuel", "Food", "Oxygen", "Relic" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Event), global::Google.Protobuf.Protocol.Event.Parser, new[]{ "Id", "Name", "Stage", "Description", "Actions" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Action), global::Google.Protobuf.Protocol.Action.Parser, new[]{ "Id", "Name", "Description", "Surge", "Fuel", "Food", "Oxygen", "Relic" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Record), global::Google.Protobuf.Protocol.Record.Parser, new[]{ "Name", "Relic" }, null, null, null, null)
@@ -2395,6 +2395,7 @@ namespace Google.Protobuf.Protocol {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public PlayerInfo(PlayerInfo other) : this() {
       playerId_ = other.playerId_;
+      depth_ = other.depth_;
       name_ = other.name_;
       character_ = other.character_;
       stat_ = other.stat_ != null ? other.stat_.Clone() : null;
@@ -2419,8 +2420,20 @@ namespace Google.Protobuf.Protocol {
       }
     }
 
+    /// <summary>Field number for the "depth" field.</summary>
+    public const int DepthFieldNumber = 2;
+    private int depth_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Depth {
+      get { return depth_; }
+      set {
+        depth_ = value;
+      }
+    }
+
     /// <summary>Field number for the "name" field.</summary>
-    public const int NameFieldNumber = 2;
+    public const int NameFieldNumber = 3;
     private string name_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2432,7 +2445,7 @@ namespace Google.Protobuf.Protocol {
     }
 
     /// <summary>Field number for the "character" field.</summary>
-    public const int CharacterFieldNumber = 3;
+    public const int CharacterFieldNumber = 4;
     private global::Google.Protobuf.Protocol.CharacterType character_ = global::Google.Protobuf.Protocol.CharacterType.Diver;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2444,7 +2457,7 @@ namespace Google.Protobuf.Protocol {
     }
 
     /// <summary>Field number for the "stat" field.</summary>
-    public const int StatFieldNumber = 4;
+    public const int StatFieldNumber = 5;
     private global::Google.Protobuf.Protocol.Stat stat_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2471,6 +2484,7 @@ namespace Google.Protobuf.Protocol {
         return true;
       }
       if (PlayerId != other.PlayerId) return false;
+      if (Depth != other.Depth) return false;
       if (Name != other.Name) return false;
       if (Character != other.Character) return false;
       if (!object.Equals(Stat, other.Stat)) return false;
@@ -2482,6 +2496,7 @@ namespace Google.Protobuf.Protocol {
     public override int GetHashCode() {
       int hash = 1;
       if (PlayerId != 0) hash ^= PlayerId.GetHashCode();
+      if (Depth != 0) hash ^= Depth.GetHashCode();
       if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (Character != global::Google.Protobuf.Protocol.CharacterType.Diver) hash ^= Character.GetHashCode();
       if (stat_ != null) hash ^= Stat.GetHashCode();
@@ -2507,16 +2522,20 @@ namespace Google.Protobuf.Protocol {
         output.WriteRawTag(8);
         output.WriteInt32(PlayerId);
       }
+      if (Depth != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(Depth);
+      }
       if (Name.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteString(Name);
       }
       if (Character != global::Google.Protobuf.Protocol.CharacterType.Diver) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(32);
         output.WriteEnum((int) Character);
       }
       if (stat_ != null) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(42);
         output.WriteMessage(Stat);
       }
       if (_unknownFields != null) {
@@ -2533,16 +2552,20 @@ namespace Google.Protobuf.Protocol {
         output.WriteRawTag(8);
         output.WriteInt32(PlayerId);
       }
+      if (Depth != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(Depth);
+      }
       if (Name.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteString(Name);
       }
       if (Character != global::Google.Protobuf.Protocol.CharacterType.Diver) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(32);
         output.WriteEnum((int) Character);
       }
       if (stat_ != null) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(42);
         output.WriteMessage(Stat);
       }
       if (_unknownFields != null) {
@@ -2557,6 +2580,9 @@ namespace Google.Protobuf.Protocol {
       int size = 0;
       if (PlayerId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(PlayerId);
+      }
+      if (Depth != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Depth);
       }
       if (Name.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
@@ -2581,6 +2607,9 @@ namespace Google.Protobuf.Protocol {
       }
       if (other.PlayerId != 0) {
         PlayerId = other.PlayerId;
+      }
+      if (other.Depth != 0) {
+        Depth = other.Depth;
       }
       if (other.Name.Length != 0) {
         Name = other.Name;
@@ -2613,15 +2642,19 @@ namespace Google.Protobuf.Protocol {
             PlayerId = input.ReadInt32();
             break;
           }
-          case 18: {
+          case 16: {
+            Depth = input.ReadInt32();
+            break;
+          }
+          case 26: {
             Name = input.ReadString();
             break;
           }
-          case 24: {
+          case 32: {
             Character = (global::Google.Protobuf.Protocol.CharacterType) input.ReadEnum();
             break;
           }
-          case 34: {
+          case 42: {
             if (stat_ == null) {
               Stat = new global::Google.Protobuf.Protocol.Stat();
             }
@@ -2647,15 +2680,19 @@ namespace Google.Protobuf.Protocol {
             PlayerId = input.ReadInt32();
             break;
           }
-          case 18: {
+          case 16: {
+            Depth = input.ReadInt32();
+            break;
+          }
+          case 26: {
             Name = input.ReadString();
             break;
           }
-          case 24: {
+          case 32: {
             Character = (global::Google.Protobuf.Protocol.CharacterType) input.ReadEnum();
             break;
           }
-          case 34: {
+          case 42: {
             if (stat_ == null) {
               Stat = new global::Google.Protobuf.Protocol.Stat();
             }
@@ -2703,7 +2740,6 @@ namespace Google.Protobuf.Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public Stat(Stat other) : this() {
-      depth_ = other.depth_;
       fuel_ = other.fuel_;
       food_ = other.food_;
       oxygen_ = other.oxygen_;
@@ -2717,20 +2753,8 @@ namespace Google.Protobuf.Protocol {
       return new Stat(this);
     }
 
-    /// <summary>Field number for the "depth" field.</summary>
-    public const int DepthFieldNumber = 1;
-    private int depth_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int Depth {
-      get { return depth_; }
-      set {
-        depth_ = value;
-      }
-    }
-
     /// <summary>Field number for the "fuel" field.</summary>
-    public const int FuelFieldNumber = 2;
+    public const int FuelFieldNumber = 1;
     private int fuel_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2742,7 +2766,7 @@ namespace Google.Protobuf.Protocol {
     }
 
     /// <summary>Field number for the "food" field.</summary>
-    public const int FoodFieldNumber = 3;
+    public const int FoodFieldNumber = 2;
     private int food_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2754,7 +2778,7 @@ namespace Google.Protobuf.Protocol {
     }
 
     /// <summary>Field number for the "oxygen" field.</summary>
-    public const int OxygenFieldNumber = 4;
+    public const int OxygenFieldNumber = 3;
     private int oxygen_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2766,7 +2790,7 @@ namespace Google.Protobuf.Protocol {
     }
 
     /// <summary>Field number for the "relic" field.</summary>
-    public const int RelicFieldNumber = 5;
+    public const int RelicFieldNumber = 4;
     private int relic_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2792,7 +2816,6 @@ namespace Google.Protobuf.Protocol {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Depth != other.Depth) return false;
       if (Fuel != other.Fuel) return false;
       if (Food != other.Food) return false;
       if (Oxygen != other.Oxygen) return false;
@@ -2804,7 +2827,6 @@ namespace Google.Protobuf.Protocol {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Depth != 0) hash ^= Depth.GetHashCode();
       if (Fuel != 0) hash ^= Fuel.GetHashCode();
       if (Food != 0) hash ^= Food.GetHashCode();
       if (Oxygen != 0) hash ^= Oxygen.GetHashCode();
@@ -2827,24 +2849,20 @@ namespace Google.Protobuf.Protocol {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Depth != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(Depth);
-      }
       if (Fuel != 0) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(8);
         output.WriteInt32(Fuel);
       }
       if (Food != 0) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(16);
         output.WriteInt32(Food);
       }
       if (Oxygen != 0) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(24);
         output.WriteInt32(Oxygen);
       }
       if (Relic != 0) {
-        output.WriteRawTag(40);
+        output.WriteRawTag(32);
         output.WriteInt32(Relic);
       }
       if (_unknownFields != null) {
@@ -2857,24 +2875,20 @@ namespace Google.Protobuf.Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Depth != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(Depth);
-      }
       if (Fuel != 0) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(8);
         output.WriteInt32(Fuel);
       }
       if (Food != 0) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(16);
         output.WriteInt32(Food);
       }
       if (Oxygen != 0) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(24);
         output.WriteInt32(Oxygen);
       }
       if (Relic != 0) {
-        output.WriteRawTag(40);
+        output.WriteRawTag(32);
         output.WriteInt32(Relic);
       }
       if (_unknownFields != null) {
@@ -2887,9 +2901,6 @@ namespace Google.Protobuf.Protocol {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Depth != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Depth);
-      }
       if (Fuel != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Fuel);
       }
@@ -2913,9 +2924,6 @@ namespace Google.Protobuf.Protocol {
     public void MergeFrom(Stat other) {
       if (other == null) {
         return;
-      }
-      if (other.Depth != 0) {
-        Depth = other.Depth;
       }
       if (other.Fuel != 0) {
         Fuel = other.Fuel;
@@ -2945,22 +2953,18 @@ namespace Google.Protobuf.Protocol {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Depth = input.ReadInt32();
-            break;
-          }
-          case 16: {
             Fuel = input.ReadInt32();
             break;
           }
-          case 24: {
+          case 16: {
             Food = input.ReadInt32();
             break;
           }
-          case 32: {
+          case 24: {
             Oxygen = input.ReadInt32();
             break;
           }
-          case 40: {
+          case 32: {
             Relic = input.ReadInt32();
             break;
           }
@@ -2980,22 +2984,18 @@ namespace Google.Protobuf.Protocol {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            Depth = input.ReadInt32();
-            break;
-          }
-          case 16: {
             Fuel = input.ReadInt32();
             break;
           }
-          case 24: {
+          case 16: {
             Food = input.ReadInt32();
             break;
           }
-          case 32: {
+          case 24: {
             Oxygen = input.ReadInt32();
             break;
           }
-          case 40: {
+          case 32: {
             Relic = input.ReadInt32();
             break;
           }

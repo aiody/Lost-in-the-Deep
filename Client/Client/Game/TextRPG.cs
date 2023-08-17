@@ -71,8 +71,8 @@ namespace Client
                     _renderer.DrawUIFrame();
                     _renderer.DrawName(_myPlayer.Info.Name, _myPlayer.CharacterName);
                     _renderer.DrawStatusBar(_myPlayer.Stat.Fuel, _myPlayer.Stat.Oxygen, _myPlayer.Stat.Food, _myPlayer.Stat.Relic);
-                    int[] depthsOfOthers = PlayerManager.Instance.Others.Select(x => x.Value.Stat.Depth).ToArray();
-                    _renderer.DrawDepthDashboard(_myPlayer.Stat.Depth, depthsOfOthers);
+                    int[] depthsOfOthers = PlayerManager.Instance.Others.Select(x => x.Value.Info.Depth).ToArray();
+                    _renderer.DrawDepthDashboard(_myPlayer.Info.Depth, depthsOfOthers);
 
                     OccurEvent();
                     CheckGameOver();
@@ -194,7 +194,7 @@ namespace Client
             // 2001 - 3000 : 3 stage
             // 3001 - 4000 : 4 stage
             // 4001 - 5000 : 5 stage
-            int stage = ((_myPlayer.Stat.Depth - 1) / 1000) + 1;
+            int stage = ((_myPlayer.Info.Depth - 1) / 1000) + 1;
             List<Event> availableEvents = _events.FindAll(e => e.Stage == stage);
             Random rand = new Random();
             Event curEvent = availableEvents[rand.Next(0, availableEvents.Count)];
@@ -229,18 +229,18 @@ namespace Client
             _myPlayer.Stat.Food += curAction.Food;
             _myPlayer.Stat.Oxygen += curAction.Oxygen;
             _myPlayer.Stat.Relic += curAction.Relic;
-            _myPlayer.Stat.Depth -= curAction.Surge;
+            _myPlayer.Info.Depth -= curAction.Surge;
 
-            _renderer.DrawActionResult(curAction, _myPlayer.Stat.Depth);
+            _renderer.DrawActionResult(curAction, _myPlayer.Info.Depth);
             _renderer.DrawStatusBar(_myPlayer.Stat.Fuel, _myPlayer.Stat.Oxygen, _myPlayer.Stat.Food, _myPlayer.Stat.Relic);
-            int[] depthsOfOthers = PlayerManager.Instance.Others.Select(x => x.Value.Stat.Depth).ToArray();
-            _renderer.DrawDepthDashboard(_myPlayer.Stat.Depth, depthsOfOthers);
+            int[] depthsOfOthers = PlayerManager.Instance.Others.Select(x => x.Value.Info.Depth).ToArray();
+            _renderer.DrawDepthDashboard(_myPlayer.Info.Depth, depthsOfOthers);
             _renderer.ContinueWithEnter();
         }
 
         void CheckGameOver()
         {
-            if (_myPlayer.Stat.Depth <= 0)
+            if (_myPlayer.Info.Depth <= 0)
                 _curScene = Scene.Ending;
 
             if (_myPlayer.Stat.Fuel <= 0 || _myPlayer.Stat.Food <= 0 || _myPlayer.Stat.Oxygen <= 0)

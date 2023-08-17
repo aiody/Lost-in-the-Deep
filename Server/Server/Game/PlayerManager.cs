@@ -15,9 +15,9 @@ namespace Server
 
         int _counter = 1;
 
-        public Player Add()
+        public Player Add(ClientSession session)
         {
-            Player player = new Player();
+            Player player = new Player(session);
 
             lock (_lock)
             {

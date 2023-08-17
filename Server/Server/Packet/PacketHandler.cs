@@ -49,8 +49,6 @@ internal class PacketHandler
 
         Action targetAction = targetEvent.Actions.Where(a => a.Id == chooseActionPacket.ActionId).First();
 
-        // TODO: 선택한 액션이 유효한지 검증
-
         clientSession.MyPlayer.ApplyActionResult(targetAction);
     }
 

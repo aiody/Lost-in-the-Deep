@@ -14,8 +14,7 @@ internal class ClientSession : PacketSession
         if (room == null)
             room = RoomManager.Instance.Add();
 
-        MyPlayer = PlayerManager.Instance.Add();
-        MyPlayer.Session = this;
+        MyPlayer = PlayerManager.Instance.Add(this);
         room.EnterGame(MyPlayer);
     }
 
