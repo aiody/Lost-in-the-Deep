@@ -12,14 +12,14 @@ namespace Server
     {
         List<Record> records = new List<Record>();
 
-        public List<Record> GetTop5Rank()
+        public List<Record> GetTop10Rank()
         {
             records.Sort((a, b) =>
             {
                 return b.Relic.CompareTo(a.Relic);
             });
 
-            return records.GetRange(0, Math.Min(records.Count, 5));
+            return records.GetRange(0, Math.Min(records.Count, 10));
         }
 
         public void WriteRecord(string name, int relic)

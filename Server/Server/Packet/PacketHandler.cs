@@ -71,7 +71,7 @@ internal class PacketHandler
         ClientSession clientSession = session as ClientSession;
 
         S_ResRankingList rankPacket = new S_ResRankingList();
-        List<Record> ranks = clientSession.MyPlayer.Room.RankingBoard.GetTop5Rank();
+        List<Record> ranks = clientSession.MyPlayer.Room.RankingBoard.GetTop10Rank();
         foreach (Record rank in ranks)
             rankPacket.Ranks.Add(rank);
 
