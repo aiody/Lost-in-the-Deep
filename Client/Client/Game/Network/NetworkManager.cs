@@ -18,6 +18,8 @@ namespace Client
 
         ServerSession _session = new ServerSession();
 
+        bool _isLoading = false;
+
         public void Init()
         {
             string host = Dns.GetHostName();
@@ -31,6 +33,27 @@ namespace Client
         public void Send(IMessage packet)
         {
             _session.Send(packet);
+        }
+
+        public void Loading()
+        {
+            _isLoading = true;
+            while (_isLoading)
+            {
+                Console.Clear();
+                Console.SetCursorPosition((Program.SCREEN_WIDTH / 2) - 4, Program.SCREEN_HEIGHT / 2);
+                Console.Write("로딩중.");
+                Thread.Sleep(250);
+                Console.Write(".");
+                Thread.Sleep(250);
+                Console.Write(".");
+                Thread.Sleep(250);
+            }
+        }
+
+        public void ReleaseLoading()
+        {
+            _isLoading = false;
         }
     }
 }

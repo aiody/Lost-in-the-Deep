@@ -25,12 +25,12 @@ namespace Client
         public void Start()
         {
             NetworkManager.Instance.Init();
+            NetworkManager.Instance.Loading();
             InitGame();
         }
 
         void InitGame()
         {
-            Thread.Sleep(250);
             _myPlayer = PlayerManager.Instance.MyPlayer;
             LoadEvents();
         }
@@ -51,7 +51,8 @@ namespace Client
                 case Scene.Ranking:
                     C_ReqRankingList reqRank = new C_ReqRankingList();
                     NetworkManager.Instance.Send(reqRank);
-                    Thread.Sleep(250);
+                    NetworkManager.Instance.Loading();
+
                     _renderer.DrawRanking(DataManager.Instance.Ranking);
                     InputRanking();
                     break;
@@ -285,6 +286,7 @@ namespace Client
 
                 C_Retry retryPacket = new C_Retry();
                 NetworkManager.Instance.Send(retryPacket);
+                NetworkManager.Instance.Loading();
 
                 InitGame();
                 _curScene = Scene.Main;

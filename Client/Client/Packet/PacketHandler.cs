@@ -18,6 +18,8 @@ internal class PacketHandler
 
         foreach (Event e in enterPacket.Events)
             DataManager.Instance.Events.Add(e);
+
+        NetworkManager.Instance.ReleaseLoading();
     }
 
     public static void S_LeaveGameHandler(PacketSession session, IMessage packet)
@@ -70,5 +72,7 @@ internal class PacketHandler
 
         foreach (Record rank in rankPacket.Ranks)
             DataManager.Instance.Ranking.Add(rank);
+
+        NetworkManager.Instance.ReleaseLoading();
     }
 }
