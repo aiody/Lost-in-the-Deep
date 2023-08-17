@@ -61,6 +61,7 @@ internal class PacketHandler
         if (room == null)
             room = RoomManager.Instance.Add();
 
+        clientSession.MyPlayer.InitPlayer();
         room.EnterGame(clientSession.MyPlayer);
     }
 

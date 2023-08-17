@@ -29,6 +29,11 @@ namespace Server
         public Player(ClientSession session)
         {
             Session = session;
+            InitPlayer();
+        }
+
+        public void InitPlayer()
+        {
             Info.Depth = 5000;
         }
 
