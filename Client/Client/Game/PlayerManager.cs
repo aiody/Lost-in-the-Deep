@@ -42,5 +42,12 @@ namespace Client
             Players.TryGetValue(playerId, out player);
             return player;
         }
+
+        public void Clear()
+        {
+            Players.Clear();
+            Others.Clear();
+            MyPlayer = null;
+        }
     }
 }

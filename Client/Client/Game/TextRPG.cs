@@ -282,7 +282,7 @@ namespace Client
 
             if (selectedNumber == 1)
             {
-                PlayerManager.Instance.Remove(_myPlayer.Id);
+                PlayerManager.Instance.Clear();
 
                 C_Retry retryPacket = new C_Retry();
                 NetworkManager.Instance.Send(retryPacket);
