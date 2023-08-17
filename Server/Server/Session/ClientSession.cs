@@ -1,10 +1,12 @@
 ﻿using System.Net;
 using ServerCore;
 using Server;
+using Server.Session;
 
 internal class ClientSession : PacketSession
 {
     public Player MyPlayer { get; set; }
+    public int SessionId { get; set; }
 
     public override void OnConnected(EndPoint endPoint)
     {
@@ -40,5 +42,7 @@ internal class ClientSession : PacketSession
         room.LeaveGame(MyPlayer.Id);
 
         PlayerManager.Instance.Remove(MyPlayer.Id);
+
+        SessionManager.Instance.Remove(this);
     }
 }
