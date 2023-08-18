@@ -282,8 +282,6 @@ namespace Client
 
             if (selectedNumber == 1)
             {
-                PlayerManager.Instance.Clear();
-
                 C_Retry retryPacket = new C_Retry();
                 NetworkManager.Instance.Send(retryPacket);
                 NetworkManager.Instance.Loading();

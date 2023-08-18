@@ -24,7 +24,7 @@ internal class PacketHandler
 
     public static void S_LeaveGameHandler(PacketSession session, IMessage packet)
     {
-        Console.WriteLine($"Leave Game : {packet}");
+        PlayerManager.Instance.Clear();
     }
 
     public static void S_SpawnHandler(PacketSession session, IMessage packet)
