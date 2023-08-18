@@ -39,7 +39,8 @@ internal class ClientSession : PacketSession
         Console.WriteLine($"OnDisconneced : {endPoint}");
 
         GameRoom room = MyPlayer.Room;
-        room.LeaveGame(MyPlayer.Id);
+        if (room != null)
+            room.LeaveGame(MyPlayer.Id);
 
         PlayerManager.Instance.Remove(MyPlayer.Id);
 
