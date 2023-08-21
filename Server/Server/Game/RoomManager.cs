@@ -25,9 +25,10 @@ namespace Server
                 room.RoomId = _roomId;
                 _rooms.Add(_roomId, room);
                 _roomId++;
+
+                recentRoom = room;
             }
 
-            recentRoom = room;
             return room;
         }
 
@@ -53,11 +54,14 @@ namespace Server
 
         public GameRoom GetRecentRoom()
         {
-            if (recentRoom == null)
-                return null;
-            if (recentRoom.IsFull())
-                return null;
-            return recentRoom;
+            lock (_lock)
+            {
+                if (recentRoom == null)
+                    return null;
+                if (recentRoom.IsFull())
+                    return null;
+                return recentRoom;
+            }
         }
     }
 }

@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using ServerCore;
 using Server;
 using Google.Protobuf.Protocol;
-using Action = Google.Protobuf.Protocol.Action;
 
 internal class PacketHandler
 {
@@ -16,17 +15,13 @@ internal class PacketHandler
         C_SelectCharacter selectCharacterPacket = packet as C_SelectCharacter;
         ClientSession clientSession = session as ClientSession;
 
-        Player myPlayer = clientSession.MyPlayer;
-        myPlayer.Info.Character = selectCharacterPacket.Character;
-        myPlayer.Info.Stat = Player.InitStat(selectCharacterPacket.Character);
+        Player player = clientSession.MyPlayer;
+        if (player == null) return;
 
-        S_InitialCharacterInfo initPacket = new S_InitialCharacterInfo()
-        {
-            Character = myPlayer.Info.Character,
-            Stat = myPlayer.Info.Stat
-        };
+        GameRoom room = player.Room;
+        if (room == null) return;
 
-        clientSession.Send(initPacket);
+        room.Push(() => room.HandleSelectCharacter(player, selectCharacterPacket));
     }
 
     public static void C_SetPlayerNameHandler(PacketSession session, IMessage packet)
@@ -34,7 +29,13 @@ internal class PacketHandler
         C_SetPlayerName namePacket = packet as C_SetPlayerName;
         ClientSession clientSession = session as ClientSession;
 
-        clientSession.MyPlayer.Info.Name = namePacket.Name;
+        Player player = clientSession.MyPlayer;
+        if (player == null) return;
+
+        GameRoom room = player.Room;
+        if (room == null) return;
+
+        room.Push(() => room.HandleSetPlayerName(player, namePacket));
     }
 
     public static void C_ChooseActionHandler(PacketSession session, IMessage packet)
@@ -42,38 +43,39 @@ internal class PacketHandler
         C_ChooseAction chooseActionPacket = packet as C_ChooseAction;
         ClientSession clientSession = session as ClientSession;
 
-        Event targetEvent = DataManager.Events.Find(e => e.Id == chooseActionPacket.EventId);
-        
-        if (targetEvent == null)
-            return;
+        Player player = clientSession.MyPlayer;
+        if (player == null) return;
 
-        Action targetAction = targetEvent.Actions.Where(a => a.Id == chooseActionPacket.ActionId).First();
+        GameRoom room = player.Room;
+        if (room == null) return;
 
-        clientSession.MyPlayer.ApplyActionResult(targetAction);
+        room.Push(() => room.HandleChooseAction(player, chooseActionPacket));
     }
 
     public static void C_RetryHandler(PacketSession session, IMessage packet)
     {
-        C_Retry retryPacket = packet as C_Retry;
         ClientSession clientSession = session as ClientSession;
+
+        Player player = clientSession.MyPlayer;
+        if (player == null) return;
 
         GameRoom room = RoomManager.Instance.GetRecentRoom();
         if (room == null)
             room = RoomManager.Instance.Add();
 
-        clientSession.MyPlayer.InitPlayer();
-        room.EnterGame(clientSession.MyPlayer);
+        room.Push(() => room.HandleRetry(player));
     }
 
     public static void C_ReqRankingListHandler(PacketSession session, IMessage packet)
     {
         ClientSession clientSession = session as ClientSession;
 
-        S_ResRankingList rankPacket = new S_ResRankingList();
-        List<Record> ranks = clientSession.MyPlayer.Room.RankingBoard.GetTop10Rank();
-        foreach (Record rank in ranks)
-            rankPacket.Ranks.Add(rank);
+        Player player = clientSession.MyPlayer;
+        if (player == null) return;
 
-        clientSession.Send(rankPacket);
+        GameRoom room = player.Room;
+        if (room == null) return;
+
+        room.Push(() => room.HandleReqRankingList(player));
     }
 }

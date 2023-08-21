@@ -17,7 +17,7 @@ internal class ClientSession : PacketSession
             room = RoomManager.Instance.Add();
 
         MyPlayer = PlayerManager.Instance.Add(this);
-        room.EnterGame(MyPlayer);
+        room.Push(() => room.EnterGame(MyPlayer));
     }
 
     public override void OnRecvPacket(ArraySegment<byte> buffer)
@@ -40,7 +40,7 @@ internal class ClientSession : PacketSession
 
         GameRoom room = MyPlayer.Room;
         if (room != null)
-            room.LeaveGame(MyPlayer.Id);
+            room.Push(() => room.LeaveGame(MyPlayer.Id));
 
         PlayerManager.Instance.Remove(MyPlayer.Id);
 

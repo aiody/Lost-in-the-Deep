@@ -1,5 +1,6 @@
 ﻿using Google.Protobuf;
 using Google.Protobuf.Protocol;
+using Server.ServerCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,19 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-    internal class GameRoom
+    internal class GameRoom : IJobQueue
     {
+        JobQueue _jobQueue = new JobQueue();
+        object _lock = new object();
+
         public int RoomId { get; set; }
         Dictionary<int, Player> _players = new Dictionary<int, Player>();
         public RankingBoard RankingBoard { get; private set; } = new RankingBoard();
+
+        public void Push(System.Action job)
+        {
+            _jobQueue.Push(job);
+        }
 
         public void EnterGame(Player player)
         {
@@ -86,7 +95,58 @@ namespace Server
 
         public bool IsFull()
         {
-            return _players.Count >= 6;
+            lock (_lock)
+            {
+                return _players.Count >= 6;
+            }
+        }
+
+        public void HandleSelectCharacter(Player player, C_SelectCharacter selectCharacterPacket)
+        {
+            player.Info.Character = selectCharacterPacket.Character;
+            player.Info.Stat = Player.InitStat(selectCharacterPacket.Character);
+
+            S_InitialCharacterInfo initPacket = new S_InitialCharacterInfo()
+            {
+                Character = player.Info.Character,
+                Stat = player.Info.Stat
+            };
+
+            player.Session.Send(initPacket);
+        }
+
+        public void HandleSetPlayerName(Player player, C_SetPlayerName namePacket)
+        {
+            player.Info.Name = namePacket.Name;
+        }
+
+        public void HandleChooseAction(Player player, C_ChooseAction chooseActionPacket)
+        {
+            Event targetEvent = DataManager.Events.Find(e => e.Id == chooseActionPacket.EventId);
+
+            if (targetEvent == null)
+                return;
+
+            Google.Protobuf.Protocol.Action targetAction = targetEvent.Actions.Where(a => a.Id == chooseActionPacket.ActionId).First();
+
+            player.ApplyActionResult(targetAction);
+        }
+
+        public void HandleRetry(Player player)
+        {
+            player.InitPlayer();
+            EnterGame(player);
+        }
+
+        public void HandleReqRankingList(Player player)
+        {
+            S_ResRankingList rankPacket = new S_ResRankingList();
+            List<Record> ranks = RankingBoard.GetTop10Rank();
+            
+            foreach (Record rank in ranks)
+                rankPacket.Ranks.Add(rank);
+
+            player.Session.Send(rankPacket);
         }
     }
 }
