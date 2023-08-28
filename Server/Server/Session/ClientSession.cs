@@ -46,7 +46,7 @@ internal class ClientSession : PacketSession
 
     public override void OnSend(int numOfBytes)
     {
-        Console.WriteLine($"Transffered bytes : {numOfBytes}");
+        //Console.WriteLine($"Transffered bytes : {numOfBytes}");
     }
 
     public override void OnDisconnected(EndPoint endPoint)
